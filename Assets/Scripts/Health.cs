@@ -25,6 +25,25 @@ public class Health : MonoBehaviour
 		if (currentHP <= 0)
 		Die();
 	}
+	public void Heal(int amount)
+	{
+		currentHP += amount;
+
+		// Clamp health so it doesn't go over the maximum
+		if (currentHP > maxHP)
+		{
+			currentHP = maxHP;
+		}
+
+		// Update the UI bar so we see the heal happen
+		if (healthUIScript != null)
+		{
+			float currentFill = currentHP / maxHP;
+			//healthUIScript.UpdateHealthBar(currentFill);
+		}
+
+		Debug.Log("Healed! Current HP: " + currentHP);
+	}
 
 	void Die()
 	{
