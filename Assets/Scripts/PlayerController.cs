@@ -1,61 +1,45 @@
-using UnityEngine;
+﻿using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    public GridManager gridManager; // Drag the GridManager object here in Inspector
+	public float speed = 5f;
 
-    private Vector3 targetPosition;
-    private bool isMoving = false;
+	private Rigidbody2D rb;
+	public GameObject projectilePrefab;
+	public Transform firePoint;
 
-    void Start()
-    {
-        // Start at current position
-        targetPosition = transform.position;
-    }
+	void Update()
+	{
+		if (Input.GetMouseButtonDown(0))
+			Shoot();
+	}
 
-    void Update()
-    {
-        // If we are already moving, just keep sliding toward the target
-        if (isMoving)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+	void Shoot()
+	{
+		Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		mouse.z = 0;
 
-            if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
-            {
-                transform.position = targetPosition;
-                isMoving = false;
-            }
-            return;
-        }
+		Vector2 dir = (mouse - firePoint.position).normalized;
 
-        // Get Input (WASD)
-        float horizontal = Input.GetAxisRaw("Horizontal"); // A/D or Left/Right
-        float vertical = Input.GetAxisRaw("Vertical");     // W/S or Up/Down
+		GameObject proj = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+		proj.GetComponent<Projectile>().Launch(dir);
+	}
 
-        // Prevent diagonal movement for now to keep it simple
-        if (horizontal != 0) vertical = 0;
+	void Awake()
+	{
+		rb = GetComponent<Rigidbody2D>();
+	}
 
-        if (horizontal != 0 || vertical != 0)
-        {
-            Vector3 direction = new Vector3(horizontal, vertical, 0);
-            Vector3 potentialTarget = targetPosition + direction;
+	void FixedUpdate()
+	{
+		float h = Input.GetAxisRaw("Horizontal");
+		float v = Input.GetAxisRaw("Vertical");
 
-            // Check our Logic Grid before moving
-            if (CanMove(potentialTarget))
-            {
-                targetPosition = potentialTarget;
-                isMoving = true;
-            }
-        }
-    }
+		Vector2 dir = new Vector2(h, v);
+		if (Mathf.Abs(h) > 0 && Mathf.Abs(v) > 0)
+			dir *= 0.7071f; // normalize diagonals
+		rb.linearVelocity = dir * speed;
 
-    bool CanMove(Vector3 target)
-    {
-        // Convert world position to grid coordinates (assuming 1 unit = 1 tile)
-        int gridX = Mathf.RoundToInt(target.x);
-        int gridY = Mathf.RoundToInt(target.y);
-
-        return gridManager.IsCellWalkable(gridX, gridY);
-    }
+	}
 }

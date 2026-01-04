@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Background
+  - PlayerCamera
+  - Enemy
   layers:
   - Default
   - TransparentFX

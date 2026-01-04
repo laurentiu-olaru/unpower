@@ -1,51 +1,65 @@
+using UnityEngine.Tilemaps;
 using UnityEngine;
-using UnityEngine.Tilemaps; // Add this!
 
 public class GridManager : MonoBehaviour
 {
-    public Tilemap obstaclesTilemap; // Drag your Obstacles Tilemap here
-    public int width = 20;
-    public int height = 20;
-    public Vector3Int originOffset = new Vector3Int(-10, -10, 0); // Centers the grid
+	public Tilemap obstaclesTilemap;
+	public Vector3Int originOffset = Vector3Int.zero;
+	public int width = 100;
+	public int height = 100;
 
-    private int[,] logicGrid;
+	private int[,] logicGrid;
 
-    void Awake()
-    {
-        GenerateLogicGrid();
-    }
+	void Start()
+	{
+		if (obstaclesTilemap == null)
+		{
+			Debug.LogError("Obstacles Tilemap is not assigned!");
+			return;
+		}
 
-    void GenerateLogicGrid()
-    {
-        logicGrid = new int[width, height];
+		GenerateLogicGrid();
+	}
 
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                // Translate grid coordinates to Tilemap coordinates
-                Vector3Int tilePos = new Vector3Int(x + originOffset.x, y + originOffset.y, 0);
+	void GenerateLogicGrid()
+	{
+		logicGrid = new int[width, height];
+		int wallCount = 0;
 
-                if (obstaclesTilemap.HasTile(tilePos))
-                {
-                    logicGrid[x, y] = 1; // It's a wall
-                }
-                else
-                {
-                    logicGrid[x, y] = 0; // It's walkable
-                }
-            }
-        }
-    }
+		for (int x = 0; x < width; x++)
+		{
+			for (int y = 0; y < height; y++)
+			{
+				Vector3Int tilePos = new Vector3Int(x + originOffset.x, y + originOffset.y, 0);
 
-    public bool IsCellWalkable(int worldX, int worldY)
-    {
-        // Convert world position back to our array index
-        int arrayX = worldX - originOffset.x;
-        int arrayY = worldY - originOffset.y;
+				if (obstaclesTilemap.HasTile(tilePos))
+				{
+					logicGrid[x, y] = 1;
+					wallCount++;
+				}
+				else
+				{
+					logicGrid[x, y] = 0;
+				}
+			}
+		}
 
-        if (arrayX < 0 || arrayX >= width || arrayY < 0 || arrayY >= height) return false;
+		Debug.Log($"LogicGrid built. Walls found: {wallCount}");
+	}
 
-        return logicGrid[arrayX, arrayY] == 0;
-    }
+	public bool IsCellWalkable(int worldX, int worldY)
+	{
+		int arrayX = worldX - originOffset.x;
+		int arrayY = worldY - originOffset.y;
+
+		if (arrayX < 0 || arrayX >= width || arrayY < 0 || arrayY >= height) return false;
+
+		return logicGrid[arrayX, arrayY] == 0;
+	}
+
+	public bool IsWorldPositionWalkable(Vector3 worldPosition)
+	{
+		Vector3Int cell = obstaclesTilemap.WorldToCell(worldPosition);
+		return IsCellWalkable(cell.x, cell.y);
+	}
 }
