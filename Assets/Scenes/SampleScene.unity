@@ -791,7 +791,7 @@ TilemapRenderer:
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
-  m_Mode: 0
+  m_Mode: 1
   m_DetectChunkCullingBounds: 0
 --- !u!1839735485 &1148184795
 Tilemap:
@@ -3757,11 +3757,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: -9130879439924087061, guid: ec475817cb04b3843897888b33e1d529, type: 3}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -3789,6 +3789,7 @@ GameObject:
   - component: {fileID: 1338442360}
   - component: {fileID: 1338442359}
   - component: {fileID: 1338442361}
+  - component: {fileID: 1338442362}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -3811,6 +3812,7 @@ MonoBehaviour:
   speed: 5
   projectilePrefab: {fileID: 6683670502644987477, guid: 56247fd7597846342aea063bf29f2da6, type: 3}
   firePoint: {fileID: 1203626735}
+  maxHealth: 100
 --- !u!212 &1338442357
 SpriteRenderer:
   serializedVersion: 2
@@ -3837,7 +3839,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3858,7 +3860,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -290678039
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 6122472025495218818, guid: ec475817cb04b3843897888b33e1d529, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3920,7 +3922,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.4}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -3930,7 +3932,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.375, y: 1.6875}
+  m_Size: {x: 0.99, y: 0.79}
   m_EdgeRadius: 0
 --- !u!50 &1338442360
 Rigidbody2D:
@@ -3976,6 +3978,21 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls: []
+  healthUIScript: {fileID: 0}
+--- !u!114 &1338442362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338442355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c633ca8189d771c4e846bd7770dd4d81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthUI
+  playerHealth: {fileID: 1338442361}
+  fillImage: {fileID: 1323080094}
 --- !u!1 &1532760617
 GameObject:
   m_ObjectHideFlags: 0
@@ -4310,7 +4327,7 @@ TilemapRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1131050227
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0.03125, y: 0.03125, z: 0}

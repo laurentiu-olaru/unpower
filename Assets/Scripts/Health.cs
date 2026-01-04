@@ -7,6 +7,7 @@ public class Health : MonoBehaviour
 	public int currentHP;
 
 	public UnityEvent onDeath;
+	public PlayerHealthUI healthUIScript;
 
 	void Awake()
 	{
@@ -17,9 +18,12 @@ public class Health : MonoBehaviour
 	{
 		currentHP -= amount;
 		currentHP = Mathf.Clamp(currentHP, 0, maxHP);
-
+		if (healthUIScript != null)
+		{
+			float currentFill = currentHP / maxHP;
+		}
 		if (currentHP <= 0)
-			Die();
+		Die();
 	}
 
 	void Die()

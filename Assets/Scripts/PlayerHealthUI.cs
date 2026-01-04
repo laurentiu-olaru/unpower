@@ -10,4 +10,5 @@ public class PlayerHealthUI : MonoBehaviour
 	{
 		fillImage.fillAmount = (float)playerHealth.currentHP / playerHealth.maxHP;
 	}
+
 }
