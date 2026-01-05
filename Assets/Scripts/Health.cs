@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
@@ -9,7 +10,17 @@ public class Health : MonoBehaviour
 	public UnityEvent onDeath;
 	public PlayerHealthUI healthUIScript;
 
-	void Awake()
+    [Header("Game Over Settings")]
+    public GameObject gameOverUI; // Drag your GameOverPanel here
+
+    void Start()
+    {
+        currentHP = maxHP;
+        // Ensure game is running at normal speed when starting
+        Time.timeScale = 1f;
+    }
+
+    void Awake()
 	{
 		currentHP = maxHP;
 	}
@@ -48,6 +59,34 @@ public class Health : MonoBehaviour
 	void Die()
 	{
 		onDeath?.Invoke();
-		Destroy(gameObject);
-	}
+        Debug.Log("Player Died!");
+
+        // 1. Show the Game Over Screen
+        if (gameOverUI != null)
+        {
+            gameOverUI.SetActive(true);
+        }
+
+        // 2. Freeze the game
+        Time.timeScale = 0f;
+
+        // 3. INSTEAD OF DESTROY: Disable visuals and controls
+        // This hides the player but keeps the script running
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<PlayerController>().enabled = false;
+
+        // Optional: If you have a collider, disable it so enemies stop bumping into a ghost
+        if (GetComponent<Collider2D>() != null)
+            GetComponent<Collider2D>().enabled = false;
+
+    }
+
+    public void RestartGame()
+    {
+        // Important: Reset time scale so the next game actually moves!
+        Time.timeScale = 1f;
+
+        // Reloads the current scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }
