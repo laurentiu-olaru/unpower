@@ -120,6 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31fd8fb40bf40014eb998dc16dbec8da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  coinPrefab: {fileID: 4484949658226260096, guid: f908a40f6ffc07d4e8dbe6f5f9fd8eb9, type: 3}
+  dropChance: 1
   maxHealth: 100
   healthBarFill: {fileID: 7246008607320133474}
   healthCanvas: {fileID: 4918377267123185689}
@@ -136,6 +138,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
   speed: 3
+  damage: 10
+  attackSpeed: 1
 --- !u!1 &4918377267123185689 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6212295698375251098, guid: 69f3d3bf4490df8419f751ee31f49312, type: 3}

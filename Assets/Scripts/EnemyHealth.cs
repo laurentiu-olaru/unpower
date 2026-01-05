@@ -3,7 +3,12 @@ using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
-	public float maxHealth = 100f;
+    [Header("Loot")]
+    public GameObject coinPrefab; // Drag your coin prefab here
+    [Range(0, 1)]
+    public float dropChance = 1.0f; // 1.0 means 100% chance
+
+    public float maxHealth = 100f;
 	private float currentHealth;
 
 	// Drag the Red "Fill" Image from the child canvas here
@@ -39,7 +44,12 @@ public class EnemyHealth : MonoBehaviour
 
 	void Die()
 	{
-		// Add particle effects or score logic here later
-		Destroy(gameObject);
-	}
+        // Check if we should spawn a coin
+        if (coinPrefab != null && Random.value <= dropChance)
+        {
+            Instantiate(coinPrefab, transform.position, Quaternion.identity);
+        }
+
+        Destroy(gameObject);
+    }
 }
