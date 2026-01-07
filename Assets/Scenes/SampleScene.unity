@@ -184097,7 +184097,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlacementManager
   buildingPrefabs:
   - {fileID: 3196509732017333660, guid: 923bd09470abf06488e80f7cc625a3b7, type: 3}
-  - {fileID: 1023999766655728001, guid: 5b78f94b7a2ed5844874f2428ab03acb, type: 3}
+  - {fileID: 4406639278188763649, guid: af73754724290454885c226cd8e79f98, type: 3}
   buildingLayer:
     serializedVersion: 2
     m_Bits: 8

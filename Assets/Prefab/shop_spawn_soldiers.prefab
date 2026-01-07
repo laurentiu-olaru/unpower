@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6651447535272988339}
   - component: {fileID: 69324797612686608}
   - component: {fileID: 1635182974884560819}
+  - component: {fileID: 789854547805977417}
   m_Layer: 3
   m_Name: shop_spawn_soldiers
   m_TagString: Untagged
@@ -180,6 +181,22 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &789854547805977417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023999766655728001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12912990d53f8c448bcb62c9c1e03632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Barracks
+  allyPrefab: {fileID: 0}
+  spawnPoint: {fileID: 0}
+  maxAllies: 3
+  spawnInterval: 120
 --- !u!1 &1405653838077480524
 GameObject:
   m_ObjectHideFlags: 0
