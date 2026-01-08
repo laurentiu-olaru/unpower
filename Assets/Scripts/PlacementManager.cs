@@ -102,27 +102,22 @@ public class PlacementManager : MonoBehaviour
 	}
 
 
-	void PlaceBuilding()
-	{
-		//Create the real building
-		GameObject realBuilding = Instantiate(buildingPrefabs[currentBuildingIndex], ghostBuilding.transform.position, Quaternion.identity);
+    void PlaceBuilding()
+    {
+        GameObject realBuilding = Instantiate(
+            buildingPrefabs[currentBuildingIndex],
+            ghostBuilding.transform.position,
+            Quaternion.identity
+        );
 
-		// Check if it's a Barracks
-		Barracks barracksScript = realBuilding.GetComponent<Barracks>();
-		if (barracksScript != null)
-		{
-			barracksScript.InitializeBarracks();
-		}
+        foreach (var building in realBuilding.GetComponents<IBuilding>())
+        {
+            building.OnPlaced();
+        }
+    }
 
-		//Tell the tower it is now allowed to shoot
-		TowerBehavior towerScript = realBuilding.GetComponent<TowerBehavior>();
-		if (towerScript != null)
-		{
-			towerScript.isPlaced = true;
-		}
-	}
 
-	void ExitBuildingMode()
+    void ExitBuildingMode()
 	{
 		isBuildingMode = false;
 		if (ghostBuilding != null) Destroy(ghostBuilding);

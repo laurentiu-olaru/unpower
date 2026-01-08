@@ -1,55 +1,34 @@
 using UnityEngine;
-using UnityEngine.UI;
-
-public class EnemyHealth : MonoBehaviour
+using UnityEngine.Events;
+public class EnemyHealth : MonoBehaviour, IDamageable, ITargetable
 {
-    [Header("Loot")]
-    public GameObject coinPrefab; // Drag your coin prefab here
-    [Range(0, 1)]
-    public float dropChance = 1.0f; // 1.0 means 100% chance
+    public Transform GetTransform() => transform;
+    public int maxHealth = 100;
+    private int currentHealth;
 
-    public float maxHealth = 100f;
-	private float currentHealth;
+    public UnityEvent onDamageTaken;
+    public UnityEvent onDeath;
 
-	// Drag the Red "Fill" Image from the child canvas here
-	public Image healthBarFill;
-	// Drag the whole Canvas object here (so we can hide it if needed)
-	public GameObject healthCanvas;
+    void Start()
+    {
+        currentHealth = maxHealth;
+    }
 
-	void Start()
-	{
-		currentHealth = maxHealth;
-		UpdateHealthUI();
-	}
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        onDamageTaken?.Invoke();
 
-	public void TakeDamage(float amount)
-	{
-		currentHealth -= amount;
-		UpdateHealthUI();
-
-		if (currentHealth <= 0)
-		{
-			Die();
-		}
-	}
-
-	void UpdateHealthUI()
-	{
-		// Update the fill amount (0 to 1)
-		if (healthBarFill != null)
-		{
-			healthBarFill.fillAmount = currentHealth / maxHealth;
-		}
-	}
-
-	void Die()
-	{
-        // Check if we should spawn a coin
-        if (coinPrefab != null && Random.value <= dropChance)
+        if (currentHealth <= 0)
         {
-            Instantiate(coinPrefab, transform.position, Quaternion.identity);
+            onDeath?.Invoke();
+            Die();
         }
-
+    }
+    void Die()
+    {
+        GetComponent<EnemyDropper>()?.Drop();
         Destroy(gameObject);
     }
 }
+   

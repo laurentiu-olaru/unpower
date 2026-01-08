@@ -16,15 +16,16 @@ public class Projectile : MonoBehaviour
 		GetComponent<Rigidbody2D>().linearVelocity = dir * speed;
 	}
 
-	void OnTriggerEnter2D(Collider2D other)
-	{
-		// CHANGED: Look for 'EnemyHealth' instead of 'Health'
-		EnemyHealth h = other.GetComponent<EnemyHealth>();
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player")) return; // Ignore player
 
-		if (h != null)
-		{
-			h.TakeDamage(damage);
-			Destroy(gameObject); // Destroy the arrow
-		}
-	}
+        IDamageable damageable = other.GetComponent<IDamageable>();
+        if (damageable != null)
+        {
+            damageable.TakeDamage(damage);
+            Destroy(gameObject);
+        }
+    }
+
 }

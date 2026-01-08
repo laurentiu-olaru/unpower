@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TowerBehavior : MonoBehaviour
+public class TowerBehavior : MonoBehaviour, IBuilding
 {
 	public GameObject projectilePrefab;
 	public float range = 5f;
@@ -27,8 +27,12 @@ public class TowerBehavior : MonoBehaviour
 			}
 		}
 	}
+    public void OnPlaced()
+    {
+        isPlaced = true;
+    }
 
-	GameObject FindNearestEnemy()
+    GameObject FindNearestEnemy()
 	{
 		// This assumes your enemies are tagged "Enemy"
 		GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");

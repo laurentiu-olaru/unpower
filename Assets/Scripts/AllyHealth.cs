@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AllyHealth : MonoBehaviour
+public class AllyHealth : MonoBehaviour, IDamageable
 {
 	public float maxHealth = 50f;
 	private float currentHealth;
@@ -14,7 +14,7 @@ public class AllyHealth : MonoBehaviour
 		currentHealth = maxHealth;
 	}
 
-	public void TakeDamage(float damage)
+	public void TakeDamage(int damage)
 	{
 		currentHealth -= damage;
 

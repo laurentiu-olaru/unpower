@@ -2,80 +2,79 @@ using UnityEngine;
 
 public class AllyMeleeAI : MonoBehaviour
 {
-	public float speed = 3f;
-	public float attackRange = 1.5f;
-	public float detectionRange = 10f; // Range to spot enemies
-	public float attackDamage = 10f;
-	public float attackRate = 1f;
+    public float speed = 3f;
+    public float attackRange = 1.5f;
+    public float detectionRange = 10f;
+    public int attackDamage = 10;
+    public float attackRate = 1f;
 
-	[HideInInspector] public Transform homeBase; // Set by the Barracks
-	private Transform target;
-	private float nextAttackTime = 0f;
+    [HideInInspector] public Transform homeBase;
 
-	void Update()
-	{
-		FindNearestEnemy();
+    private ITargetable target;
+    private float nextAttackTime;
 
-		if (target != null)
-		{
-			MoveToAndAttackTarget();
-		}
-		else if (homeBase != null)
-		{
-			ReturnHome();
-		}
-	}
+    void Update()
+    {
+        FindNearestTarget();
 
-	void MoveToAndAttackTarget()
-	{
-		float distance = Vector2.Distance(transform.position, target.position);
+        if (target != null)
+            MoveToAndAttackTarget();
+        else if (homeBase != null)
+            ReturnHome();
+    }
 
-		if (distance <= attackRange)
-		{
-			if (Time.time >= nextAttackTime)
-			{
-				Attack();
-				nextAttackTime = Time.time + 1f / attackRate;
-			}
-		}
-		else
-		{
-			transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
-		}
-	}
+    void FindNearestTarget()
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, detectionRange);
 
-	void ReturnHome()
-	{
-		// Stop a little bit away from the building so they don't all stack on one point
-		float distToHome = Vector2.Distance(transform.position, homeBase.position);
-		if (distToHome > 2f)
-		{
-			transform.position = Vector2.MoveTowards(transform.position, homeBase.position, speed * Time.deltaTime);
-		}
-	}
+        float closest = Mathf.Infinity;
+        ITargetable nearest = null;
 
-	void FindNearestEnemy()
-	{
-		GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-		float shortestDistance = detectionRange; // Only find enemies within detection range
-		GameObject nearestEnemy = null;
+        foreach (var hit in hits)
+        {
+            if (hit.TryGetComponent(out ITargetable t))
+            {
+                float d = Vector2.Distance(transform.position, t.GetTransform().position);
+                if (d < closest)
+                {
+                    closest = d;
+                    nearest = t;
+                }
+            }
+        }
 
-		foreach (GameObject enemy in enemies)
-		{
-			float distanceToEnemy = Vector2.Distance(transform.position, enemy.transform.position);
-			if (distanceToEnemy < shortestDistance)
-			{
-				shortestDistance = distanceToEnemy;
-				nearestEnemy = enemy;
-			}
-		}
+        target = nearest;
+    }
 
-		target = (nearestEnemy != null) ? nearestEnemy.transform : null;
-	}
+    void MoveToAndAttackTarget()
+    {
+        Transform t = target.GetTransform();
+        float distance = Vector2.Distance(transform.position, t.position);
 
-	void Attack()
-	{
-		EnemyHealth enemyHP = target.GetComponent<EnemyHealth>();
-		if (enemyHP != null) enemyHP.TakeDamage(attackDamage);
-	}
+        if (distance <= attackRange)
+        {
+            if (Time.time >= nextAttackTime)
+            {
+                Attack(t);
+                nextAttackTime = Time.time + 1f / attackRate;
+            }
+        }
+        else
+        {
+            transform.position = Vector2.MoveTowards(transform.position, t.position, speed * Time.deltaTime);
+        }
+    }
+
+    void Attack(Transform t)
+    {
+        if (t.TryGetComponent(out IDamageable dmg))
+            dmg.TakeDamage(attackDamage);
+    }
+
+    void ReturnHome()
+    {
+        float d = Vector2.Distance(transform.position, homeBase.position);
+        if (d > 2f)
+            transform.position = Vector2.MoveTowards(transform.position, homeBase.position, speed * Time.deltaTime);
+    }
 }

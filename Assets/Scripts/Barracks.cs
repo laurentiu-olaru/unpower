@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Barracks : MonoBehaviour
+public class Barracks : MonoBehaviour, IBuilding
 {
 	public GameObject allyPrefab;
 	public Transform spawnPoint; // Create an empty child object on the prefab for this
@@ -12,15 +12,22 @@ public class Barracks : MonoBehaviour
 	private List<GameObject> activeAllies = new List<GameObject>();
 	private bool isPlaced = false;
 
-	// This is called by your PlacementManager when the building is built
-	public void InitializeBarracks()
-	{
-		isPlaced = true;
-		// Spawn the first set immediately
-		SpawnWave();
-		// Start the 2-minute timer
-		StartCoroutine(SpawnRoutine());
-	}
+    // This is called by your PlacementManager when the building is built
+
+    public void OnPlaced()
+    {
+        isPlaced = true;
+        SpawnWave();
+        StartCoroutine(SpawnRoutine());
+    }
+ //   public void InitializeBarracks()
+	//{
+	//	isPlaced = true;
+	//	// Spawn the first set immediately
+	//	SpawnWave();
+	//	// Start the 2-minute timer
+	//	StartCoroutine(SpawnRoutine());
+	//}
 
 	IEnumerator SpawnRoutine()
 	{
