@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12912990d53f8c448bcb62c9c1e03632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Barracks
-  allyPrefab: {fileID: 0}
+  allyPrefab: {fileID: 5714044312056679855, guid: a9cb583273844ca4b847f33e7a5e5477, type: 3}
   spawnPoint: {fileID: 0}
   maxAllies: 3
   spawnInterval: 120

@@ -13,10 +13,20 @@ public abstract class PickupView : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        var consumer = other.GetComponent<PlayerPickupConsumer>();
-        if (consumer == null) return;
+		//var consumer = other.GetComponent<PlayerPickupConsumer>();
+		//if (consumer == null) return;
 
-        effect.Apply(consumer.Context);
-        Destroy(gameObject);
-    }
+		//effect.Apply(consumer.Context);
+		//Destroy(gameObject);
+
+
+		if (!other.CompareTag("Player")) return;
+
+		if (other.TryGetComponent(out PlayerPickupConsumer consumer))
+		{
+			var effect = CreateEffect();
+			effect.Apply(consumer.Context);
+			Destroy(gameObject);
+		}
+	}
 }

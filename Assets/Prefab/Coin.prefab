@@ -263,7 +263,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4484949658226260096}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8292d239d9c44147afc7ac5b763b0f7, type: 3}
+  m_Script: {fileID: 11500000, guid: be970fc52b77d0c4eb9daa1e4379ca3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coin
-  coinValue: 1
+  value: 1

@@ -7,7 +7,7 @@ public class PlayerPickupConsumer : MonoBehaviour
 
     public PickupContext Context { get; private set; }
 
-    void Awake()
+    void Start()
     {
         Context = new PickupContext
         {

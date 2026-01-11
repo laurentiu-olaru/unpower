@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyAI : MonoBehaviour
+public class EnemyAI : MonoBehaviour, ITargetable
 {
     public float speed = 3f;
     public int damage = 10;
@@ -9,7 +9,9 @@ public class EnemyAI : MonoBehaviour
     private Transform currentTarget;
     private float lastAttackTime;
 
-    void Update()
+	public Transform GetTransform() => transform;
+
+	void Update()
     {
         FindNearestTarget();
 
@@ -52,7 +54,7 @@ public class EnemyAI : MonoBehaviour
         if (Time.time > lastAttackTime + attackSpeed)
         {
             IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
-            if (damageable != null)
+            if (damageable != null && !collision.gameObject.CompareTag("Enemy"))
             {
                 damageable.TakeDamage(damage);
                 lastAttackTime = Time.time;

@@ -1,45 +1,37 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class HealthView : MonoBehaviour, IDamageable
 {
-    public int maxHP = 100;
-    public GameObject gameOverUI;
-    public Image fillImage;
-    public HealthComponent Health => health;
+	public int maxHP = 100;
+	public GameObject gameOverUI;
 
-    private HealthComponent health;
+	public HealthComponent Health => health;
 
-    void Awake()
-    {
-        health = new HealthComponent(maxHP);
-        health.OnDied += HandleDeath;
-        health.OnHealthChanged += HandleHealthChanged;
-    }
+	private HealthComponent health;
 
-    public void TakeDamage(int amount) => health.TakeDamage(amount);
-    public void Heal(int amount) => health.Heal(amount);
+	void Awake()
+	{
+		health = new HealthComponent(maxHP);
+		health.OnDied += HandleDeath;
+	}
 
-    void UpdateUI(int current)
-    {
-        if (fillImage != null)
-            fillImage.fillAmount = (float)current / health.MaxHP;
-    }
-    void HandleHealthChanged(int current, int max)
-    {
-        // UI will listen separately later
-    }
+	public void TakeDamage(int amount) => health.TakeDamage(amount);
+	public void Heal(int amount) => health.Heal(amount);
 
-    void HandleDeath()
-    {
-        if (gameOverUI != null)
-            gameOverUI.SetActive(true);
+	void HandleDeath()
+	{
+		if (gameOverUI != null)
+			gameOverUI.SetActive(true);
 
-        Time.timeScale = 0f;
+		Time.timeScale = 0f;
 
-        GetComponent<SpriteRenderer>().enabled = false;
-        GetComponent<PlayerController>().enabled = false;
-        if (GetComponent<Collider2D>())
-            GetComponent<Collider2D>().enabled = false;
-    }
+		if (TryGetComponent(out SpriteRenderer sr))
+			sr.enabled = false;
+
+		if (TryGetComponent(out PlayerController pc))
+			pc.enabled = false;
+
+		if (TryGetComponent(out Collider2D col))
+			col.enabled = false;
+	}
 }

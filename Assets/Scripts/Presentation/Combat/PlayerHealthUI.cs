@@ -3,21 +3,28 @@ using UnityEngine.UI;
 
 public class PlayerHealthUI : MonoBehaviour
 {
-    public HealthView playerHealth;
-    public Image fillImage;
+	public HealthView playerHealth;
+	public Image fillImage;
 
-    void OnEnable()
-    {
-        playerHealth.Health.OnHealthChanged += UpdateBar;
-    }
+	void Start()
+	{
+		if (playerHealth == null || fillImage == null)
+		{
+			Debug.LogError("PlayerHealthUI: Missing references");
+			return;
+		}
 
-    void OnDisable()
-    {
-        playerHealth.Health.OnHealthChanged -= UpdateBar;
-    }
+		playerHealth.Health.OnHealthChanged += UpdateUI;
+	}
 
-    void UpdateBar(int current, int max)
-    {
-        fillImage.fillAmount = (float)current / max;
-    }
+	void UpdateUI(int current, int max)
+	{
+		fillImage.fillAmount = (float)current / max;
+	}
+
+	void OnDestroy()
+	{
+		if (playerHealth != null)
+			playerHealth.Health.OnHealthChanged -= UpdateUI;
+	}
 }
