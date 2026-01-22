@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class ShopView : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class ShopView : MonoBehaviour
     public Transform listRoot;
     public ShopItemRowView rowPrefab;
     public TMP_Text feedbackText;
+
+    // NEW: lets another Unity script react (e.g., close build menu)
+    public event Action OnPurchaseSucceeded;
 
     private ShopComponent shop;
     private IShopCatalog catalog;
@@ -38,9 +42,18 @@ public class ShopView : MonoBehaviour
 
     private void OnBuyClicked(IShopProduct product)
     {
+        if (shop == null || context == null)
+        {
+            if (feedbackText != null) feedbackText.text = "Shop not wired.";
+            return;
+        }
+
         var result = shop.TryBuy(product.Id, context);
 
         if (feedbackText != null)
-            feedbackText.text = result.Success ? "Purchased!" : result.Reason;
+            feedbackText.text = result.Success ? "Purchased! Place it..." : result.Reason;
+
+        if (result.Success)
+            OnPurchaseSucceeded?.Invoke();
     }
 }

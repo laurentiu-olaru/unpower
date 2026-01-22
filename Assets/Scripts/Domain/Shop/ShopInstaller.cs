@@ -18,6 +18,7 @@ public class ShopInstaller : MonoBehaviour
     [Header("UI")]
     public ShopView shopView;
 
+
     private ShopComponent shop;
 
     void Awake()
@@ -37,3 +38,40 @@ public class ShopInstaller : MonoBehaviour
         shopView.Bind(shop, domainCatalog, ctx);
     }
 }
+
+
+
+/*
+ using UnityEngine;
+
+public class ShopInstaller : MonoBehaviour
+{
+    [Header("Data")]
+    public ShopCatalogSO catalog;
+
+    [Header("Currency")]
+    public PlayerScoreView scoreView;
+
+    [Header("Placement")]
+    public PlacementController placementController;
+
+    [Header("UI")]
+    public ShopView shopView;
+
+    void Awake()
+    {
+        var wallet = new ScoreWalletAdapter(scoreView.Score);
+        var domainCatalog = new UnityShopCatalog(catalog);
+
+        var shop = new ShopComponent(wallet, domainCatalog);
+
+        var ctx = new ShopContext
+        {
+            PlacementRequestor = placementController
+        };
+
+        shopView.Bind(shop, domainCatalog, ctx);
+    }
+}
+
+ */
