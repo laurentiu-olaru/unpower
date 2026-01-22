@@ -467,7 +467,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 000000009b0f2a6bf3746a43e99aaceef5be2101
+  m_ApplyToSortingLayers: 000000009b0f2a6bf3746a43e99aaceef5be21019d752ec9
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -184118,12 +184118,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7df0416e3ecaae4e899997bfa592c7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlacementManager
-  buildingPrefabs:
-  - {fileID: 3196509732017333660, guid: 923bd09470abf06488e80f7cc625a3b7, type: 3}
-  - {fileID: 4406639278188763649, guid: af73754724290454885c226cd8e79f98, type: 3}
+  debugCycleDefinitions: []
+  debugKey: 98
   buildingLayer:
     serializedVersion: 2
     m_Bits: 8
+  overlapBoxSize: {x: 2.8, y: 2.8}
+  gridSnap: 1
 --- !u!4 &1619773222
 Transform:
   m_ObjectHideFlags: 0

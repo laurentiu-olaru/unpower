@@ -4,18 +4,18 @@ public sealed class BuildingProduct : IShopProduct
     public string DisplayName { get; }
     public int Cost { get; }
 
-    private readonly string buildingId;
+    private readonly IBuildingDefinition definition;
 
-    public BuildingProduct(string id, string name, int cost, string buildingId)
+    public BuildingProduct(string id, string name, int cost, IBuildingDefinition definition)
     {
         Id = id;
         DisplayName = name;
         Cost = cost;
-        this.buildingId = buildingId;
+        this.definition = definition;
     }
 
     public void Apply(ShopContext context)
     {
-        context.BuildingSpawner?.Spawn(buildingId);
+        context.PlacementRequestor?.BeginPlacement(definition);
     }
 }
