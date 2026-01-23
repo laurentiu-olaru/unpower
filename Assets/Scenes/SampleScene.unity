@@ -150,10 +150,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   enemyPrefab: {fileID: 1654960383472127469, guid: b5f825e224b6cfa4da1ba731aa3e3cb4, type: 3}
   player: {fileID: 0}
-  totalEnemiesToSpawn: 15
-  enemiesPerWave: 3
-  timeBetweenWaveSpawns: 2
-  timeBetweenWaves: 5
+  totalEnemiesToSpawn: 40
+  enemiesPerWave: 2
+  timeBetweenWaveSpawns: 8
+  timeBetweenWaves: 9
   spawnRadius: 10
 --- !u!4 &60648828
 Transform:
@@ -186441,6 +186441,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1793854019}
+  - component: {fileID: 1793854020}
   m_Layer: 5
   m_Name: ListRoot
   m_TagString: Untagged
@@ -186465,8 +186466,34 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 15, y: 5}
+  m_SizeDelta: {x: 15, y: 9}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1793854020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1793854018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.VerticalLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 1
+  m_Spacing: 0.5
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &1914434076
 GameObject:
   m_ObjectHideFlags: 0
