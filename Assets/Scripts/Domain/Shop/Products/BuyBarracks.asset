@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 023a6bda450815b4fb147df8dffba84d, type: 3}
   m_Name: BuyBarracks
   m_EditorClassIdentifier: Assembly-CSharp::ShopProductSO
-  id: 
-  displayName: 
+  id: 1
+  displayName: Barracks
   cost: 7
   type: 1
   upgradeKind: 0

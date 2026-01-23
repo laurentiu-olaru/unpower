@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cff468403f0bcf843a8fda878512a8ed, type: 3}
+  m_Name: ShopCatalog_Main
+  m_EditorClassIdentifier: Assembly-CSharp::ShopCatalogSO
+  products:
+  - {fileID: 11400000, guid: 348faceb5a8c8454eba443ac80470041, type: 2}
+  - {fileID: 11400000, guid: 33a51f86f5ca4ac4b938f2dcf317082d, type: 2}
+  - {fileID: 11400000, guid: d984b5802703ea844af6a2a518644f6a, type: 2}
