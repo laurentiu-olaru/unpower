@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AllyHealth : MonoBehaviour, IDamageable
+public class AllyHealth : MonoBehaviour, IDamageable, IHealable
 {
 	public float maxHealth = 50f;
 	private float currentHealth;
@@ -12,6 +12,7 @@ public class AllyHealth : MonoBehaviour, IDamageable
 	void Start()
 	{
 		currentHealth = maxHealth;
+		UpdateHealthUI();
 	}
 
 	public void TakeDamage(int damage)
@@ -27,6 +28,11 @@ public class AllyHealth : MonoBehaviour, IDamageable
 		}
 	}
 
+	public void HealToFull()
+	{
+		currentHealth = maxHealth;
+		UpdateHealthUI();
+	}
 	void UpdateHealthUI()
 	{
 		if (healthBarFill != null)

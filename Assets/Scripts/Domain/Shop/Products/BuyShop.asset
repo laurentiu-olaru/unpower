@@ -16,6 +16,7 @@ MonoBehaviour:
   displayName: Upgrades Shop
   cost: 1
   type: 1
+  icon: {fileID: 21300000, guid: 59f2e743fcb06274d86f297d872afc26, type: 3}
   upgradeKind: 0
   upgradeIntValue: 0
   upgradeFloatValue: 0

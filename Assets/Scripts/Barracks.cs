@@ -47,12 +47,26 @@ public class Barracks : MonoBehaviour, IBuilding
 		// Clean up any "null" entries in the list (allies that died)
 		activeAllies.RemoveAll(item => item == null);
 
+		HealSurvivors();
+
 		// Check how many we can spawn without exceeding the limit
 		int spaceLeft = maxAllies - activeAllies.Count;
 
 		for (int i = 0; i < spaceLeft; i++)
 		{
 			SpawnAlly();
+		}
+	}
+
+	void HealSurvivors()
+	{
+		for (int i = 0; i < activeAllies.Count; i++)
+		{
+			var ally = activeAllies[i];
+			if (ally == null) continue;
+
+			if (ally.TryGetComponent(out IHealable healable))
+				healable.HealToFull();
 		}
 	}
 

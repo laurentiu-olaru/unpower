@@ -53,13 +53,15 @@ public class ShopInstaller : MonoBehaviour
         var wallet = new ScoreWalletAdapter(scoreView.Score);
         var domainCatalog = new UnityShopCatalog(catalog);
         var shop = new ShopComponent(wallet, domainCatalog);
+		var iconProvider = new ShopCatalogIconProvider(catalog);
 
-        var ctx = new ShopContext
+
+		var ctx = new ShopContext
         {
             PlacementRequestor = placementController
         };
 
-        shopView.Bind(shop, domainCatalog, ctx);
+        shopView.Bind(shop, domainCatalog, ctx, iconProvider);
 
         Debug.Log($"[ShopInstaller] Wired OK. Products: {domainCatalog.All.Count}");
     }

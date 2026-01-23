@@ -16,6 +16,7 @@ MonoBehaviour:
   displayName: Tower
   cost: 5
   type: 1
+  icon: {fileID: -9097929771323198585, guid: ec475817cb04b3843897888b33e1d529, type: 3}
   upgradeKind: 0
   upgradeIntValue: 0
   upgradeFloatValue: 0

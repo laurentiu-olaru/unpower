@@ -9,6 +9,7 @@ public class PlayerScoreView : MonoBehaviour
     void Awake()
     {
         Score = new ScoreComponent();
+        Score.Initialize(10);//Just for development purposes
         Score.OnScoreChanged += UpdateUI;
         UpdateUI(0);
     }

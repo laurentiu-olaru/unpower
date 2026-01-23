@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using System.Collections;
 
 public class ShopView : MonoBehaviour
 {
@@ -10,20 +11,31 @@ public class ShopView : MonoBehaviour
     public ShopItemRowView rowPrefab;
     public TMP_Text feedbackText;
 
-    // NEW: lets another Unity script react (e.g., close build menu)
-    public event Action OnPurchaseSucceeded;
+	[Header("Feedback")]
+	[SerializeField] private string defaultHeaderText = "Build Menu";
+	[SerializeField] private float feedbackSeconds = 1.5f;
+
+	// NEW: lets another Unity script react (e.g., close build menu)
+	public event Action OnPurchaseSucceeded;
 
     private ShopComponent shop;
     private IShopCatalog catalog;
     private ShopContext context;
+	private IShopIconProvider iconProvider;
 
-    public void Bind(ShopComponent shop, IShopCatalog catalog, ShopContext context)
+
+	private Coroutine feedbackRoutine;
+
+	public void Bind(ShopComponent shop, IShopCatalog catalog, ShopContext context, IShopIconProvider iconProvider)
     {
         this.shop = shop;
         this.catalog = catalog;
         this.context = context;
+		this.iconProvider = iconProvider;
 
-        Rebuild();
+		SetHeader(defaultHeaderText);
+
+		Rebuild();
     }
 
     private void Rebuild()
@@ -35,12 +47,38 @@ public class ShopView : MonoBehaviour
 
         foreach (var product in catalog.All)
         {
-            var row = Instantiate(rowPrefab, listRoot);
-            row.Bind(product, OnBuyClicked);
+			Sprite icon = null;
+			iconProvider?.TryGetIcon(product.Id, out icon);
+			var row = Instantiate(rowPrefab, listRoot);
+            row.Bind(product, OnBuyClicked, icon);
         }
     }
 
-    private void OnBuyClicked(IShopProduct product)
+	private void SetHeader(string text)
+	{
+		if (feedbackText != null)
+			feedbackText.text = text;
+	}
+
+	private IEnumerator FeedbackRoutine(string message)
+	{
+		SetHeader(message);
+		yield return new WaitForSeconds(feedbackSeconds);
+		SetHeader(defaultHeaderText);
+		feedbackRoutine = null;
+	}
+
+	private void ShowTemporaryMessage(string message)
+	{
+		if (feedbackText == null) return;
+
+		if (feedbackRoutine != null)
+			StopCoroutine(feedbackRoutine);
+
+		feedbackRoutine = StartCoroutine(FeedbackRoutine(message));
+	}
+
+	private void OnBuyClicked(IShopProduct product)
     {
         if (shop == null || context == null)
         {
@@ -51,9 +89,18 @@ public class ShopView : MonoBehaviour
         var result = shop.TryBuy(product.Id, context);
 
         if (feedbackText != null)
-            feedbackText.text = result.Success ? "Purchased! Place it..." : result.Reason;
+        {
+			ShowTemporaryMessage("Purchased! Place it...");
+			OnPurchaseSucceeded?.Invoke();
+		}
+        else
+        {
+			ShowTemporaryMessage(result.Reason);
+		}
+            
 
         if (result.Success)
             OnPurchaseSucceeded?.Invoke();
     }
+
 }

@@ -6,6 +6,14 @@ public class ScoreComponent
 
     public event Action<int> OnScoreChanged;
 
+
+    //This function can be deleted - just for testing purposes
+    public void Initialize(int startingScore)
+	{
+		Score = 10;
+		OnScoreChanged?.Invoke(Score);
+	}
+
     public void Add(int amount)
     {
         if (amount <= 0) return;

@@ -16,7 +16,10 @@ public class ShopProductSO : ScriptableObject
 
     public ShopProductType type;
 
-    [Header("Upgrade")]
+	[Header("UI")]
+	public Sprite icon;
+
+	[Header("Upgrade")]
     public UpgradeKind upgradeKind;
     public int upgradeIntValue;
     public float upgradeFloatValue;
