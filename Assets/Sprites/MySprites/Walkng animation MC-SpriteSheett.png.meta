@@ -1,0 +1,377 @@
+fileFormatVersion: 2
+guid: f34b8e50599e4534fbb49c9afda65fc1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4906622389722843042
+    second: Walkng animation MC-SpriteSheett_0
+  - first:
+      213: 5671019837974574215
+    second: Walkng animation MC-SpriteSheett_1
+  - first:
+      213: 8441271014837690140
+    second: Walkng animation MC-SpriteSheett_2
+  - first:
+      213: -5311314209433323978
+    second: Walkng animation MC-SpriteSheett_3
+  - first:
+      213: 7459092805809961060
+    second: Walkng animation MC-SpriteSheett_4
+  - first:
+      213: -4445973989608541690
+    second: Walkng animation MC-SpriteSheett_5
+  - first:
+      213: 7433910868842465240
+    second: Walkng animation MC-SpriteSheett_6
+  - first:
+      213: 7665987861946202915
+    second: Walkng animation MC-SpriteSheett_7
+  - first:
+      213: -629141452048680133
+    second: Walkng animation MC-SpriteSheett_8
+  - first:
+      213: -1246552388213754277
+    second: Walkng animation MC-SpriteSheett_9
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Walkng animation MC-SpriteSheett_0
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 39
+        width: 82
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a7886a2113d71440800000000000000
+      internalID: 4906622389722843042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walkng animation MC-SpriteSheett_1
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 39
+        width: 82
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 784faac0f7283be40800000000000000
+      internalID: 5671019837974574215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walkng animation MC-SpriteSheett_2
+      rect:
+        serializedVersion: 2
+        x: 583
+        y: 39
+        width: 90
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1f9334a34b652570800000000000000
+      internalID: 8441271014837690140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walkng animation MC-SpriteSheett_3
+      rect:
+        serializedVersion: 2
+        x: 839
+        y: 39
+        width: 90
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 636fd38fddb6a46b0800000000000000
+      internalID: -5311314209433323978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walkng animation MC-SpriteSheett_4
+      rect:
+        serializedVersion: 2
+        x: 1087
+        y: 31
+        width: 122
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46879fc0365048760800000000000000
+      internalID: 7459092805809961060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walkng animation MC-SpriteSheett_5
+      rect:
+        serializedVersion: 2
+        x: 1343
+        y: 31
+        width: 122
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 602b1c4563abc42c0800000000000000
+      internalID: -4445973989608541690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walkng animation MC-SpriteSheett_6
+      rect:
+        serializedVersion: 2
+        x: 1615
+        y: 39
+        width: 82
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d745457c8e8a2760800000000000000
+      internalID: 7433910868842465240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walkng animation MC-SpriteSheett_7
+      rect:
+        serializedVersion: 2
+        x: 1871
+        y: 39
+        width: 82
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32b72c3285f036a60800000000000000
+      internalID: 7665987861946202915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walkng animation MC-SpriteSheett_8
+      rect:
+        serializedVersion: 2
+        x: 2127
+        y: 39
+        width: 98
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3b3a25ce27d447f0800000000000000
+      internalID: -629141452048680133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walkng animation MC-SpriteSheett_9
+      rect:
+        serializedVersion: 2
+        x: 2383
+        y: 39
+        width: 98
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b56ba9a153b53bee0800000000000000
+      internalID: -1246552388213754277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Walkng animation MC-SpriteSheett_0: 4906622389722843042
+      Walkng animation MC-SpriteSheett_1: 5671019837974574215
+      Walkng animation MC-SpriteSheett_2: 8441271014837690140
+      Walkng animation MC-SpriteSheett_3: -5311314209433323978
+      Walkng animation MC-SpriteSheett_4: 7459092805809961060
+      Walkng animation MC-SpriteSheett_5: -4445973989608541690
+      Walkng animation MC-SpriteSheett_6: 7433910868842465240
+      Walkng animation MC-SpriteSheett_7: 7665987861946202915
+      Walkng animation MC-SpriteSheett_8: -629141452048680133
+      Walkng animation MC-SpriteSheett_9: -1246552388213754277
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
