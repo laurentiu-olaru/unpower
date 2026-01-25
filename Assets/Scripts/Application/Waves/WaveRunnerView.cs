@@ -15,6 +15,9 @@ public class WaveRunnerView : MonoBehaviour
     [Header("Difficulty")]
     [SerializeField] private int startWave = 1;
 
+    [SerializeField] private WaveHudView hud;
+
+
     private IEnemySpawnService spawnService;
     private IEnemyDifficultyApplier difficultyApplier;
 
@@ -59,6 +62,7 @@ public class WaveRunnerView : MonoBehaviour
         {
             var plan = curve.GetPlan(new WaveIndex(currentWave));
             Debug.Log($"[WaveRunner] Wave {currentWave}: enemies={plan.EnemyCount}, spawnGap={plan.TimeBetweenSpawns:0.00}, rest={plan.TimeBetweenWaves:0.00}");
+            hud?.SetWave(currentWave);
 
             for (int i = 0; i < plan.EnemyCount; i++)
             {
@@ -92,8 +96,9 @@ public class WaveRunnerView : MonoBehaviour
             // extra break every 5 waves (after wave 5, 10, 15...)
             if (currentWave % 5 == 0)
             {
-                Debug.Log("[WaveRunner] Break time! 60 seconds.");
+                hud?.ShowBreak(60);
                 yield return new WaitForSeconds(60f);
+                hud?.HideBreak();
             }
             currentWave++;
             
