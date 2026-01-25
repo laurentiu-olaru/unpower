@@ -30,8 +30,8 @@ namespace Domain.Waves
             float baseBetweenWaves = 5.0f,
             float spawnIntervalMultiplierPerWave = 0.95f,
             float waveRestMultiplierPerWave = 0.97f,
-            float minBetweenSpawns = 0.2f,
-            float minBetweenWaves = 1.0f,
+            float minBetweenSpawns = 0.8f,
+            float minBetweenWaves = 3.2f,
             float hpMultPerWave = 1.05f,
             float speedMultPerWave = 1.01f,
             float damageMultPerWave = 1.03f)

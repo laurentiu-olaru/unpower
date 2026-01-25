@@ -65,6 +65,13 @@ public class WaveRunnerView : MonoBehaviour
                 Vector2 pos = GetSpawnPosAroundPlayer();
                 var enemy = spawnService.SpawnEnemy(pos);
 
+                int coinCount = 1 + ((currentWave - 1) / 5); // +1 coin every 5 waves
+
+                var ehv = enemy.GetComponent<EnemyHealthView>();
+                if (ehv != null)
+                    ehv.SetCoinsToDrop(coinCount);
+
+
                 if (enemy != null)
                 {
                     if (difficultyApplier != null)
@@ -78,8 +85,18 @@ public class WaveRunnerView : MonoBehaviour
 
             }
 
-            currentWave++;
+
+            // normal rest
             yield return new WaitForSeconds(plan.TimeBetweenWaves);
+
+            // extra break every 5 waves (after wave 5, 10, 15...)
+            if (currentWave % 5 == 0)
+            {
+                Debug.Log("[WaveRunner] Break time! 60 seconds.");
+                yield return new WaitForSeconds(60f);
+            }
+            currentWave++;
+            
         }
     }
 

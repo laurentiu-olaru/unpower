@@ -16,6 +16,9 @@ public class EnemyHealthView : MonoBehaviour, IDamageable, IHealthInitializable
     private HealthComponent health;
     private bool initialized;
 
+    private int coinsToDrop = 1;
+
+
     // Called by difficulty system BEFORE init
     public void SetMaxHp(int newMaxHp)
     {
@@ -54,11 +57,21 @@ public class EnemyHealthView : MonoBehaviour, IDamageable, IHealthInitializable
             fillImage.fillAmount = (float)current / max;
     }
 
+    public void SetCoinsToDrop(int amount)
+    {
+        coinsToDrop = Mathf.Max(1, amount);
+    }
+
+
     private void Die()
     {
         if (coinPrefab != null && Random.value <= dropChance)
-            Instantiate(coinPrefab, transform.position, Quaternion.identity);
+        {
+            for (int i = 0; i < coinsToDrop; i++)
+                Instantiate(coinPrefab, transform.position, Quaternion.identity);
+        }
 
         Destroy(gameObject);
     }
+
 }
