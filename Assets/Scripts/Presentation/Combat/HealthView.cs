@@ -14,7 +14,14 @@ public class HealthView : MonoBehaviour, IDamageable
 
 	private HealthComponent health;
 
-	void Awake()
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip hitClip;
+    [SerializeField, Range(0f, 1f)] private float hitVolume = 1f;
+
+
+    void Awake()
 	{
 		health = new HealthComponent(maxHP);
 		health.OnDied += HandleDeath;
@@ -23,8 +30,16 @@ public class HealthView : MonoBehaviour, IDamageable
     public void TakeDamage(int amount)
     {
         health.TakeDamage(amount);
-        Damaged?.Invoke(amount); 
+        Damaged?.Invoke(amount);
+        if (hitClip != null)
+        {
+            if (sfxSource != null)
+                sfxSource.PlayOneShot(hitClip, hitVolume);
+            else
+                AudioSource.PlayClipAtPoint(hitClip, transform.position, hitVolume);
+        }
     }
+
 
     public void Heal(int amount) => health.Heal(amount);
 
