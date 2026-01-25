@@ -15,6 +15,9 @@ public class ShopInstaller : MonoBehaviour
     [Header("UI")]
     [SerializeField] private ShopView shopView;
 
+    [Header("Upgrades")]
+    [SerializeField] private PlayerUpgradesAdapter playerUpgrades;
+
     private IEnumerator Start()
     {
         // Wait one frame so PlayerScoreView.Awake definitely runs first
@@ -58,7 +61,8 @@ public class ShopInstaller : MonoBehaviour
 
 		var ctx = new ShopContext
         {
-            PlacementRequestor = placementController
+            PlacementRequestor = placementController,
+            PlayerUpgrades = playerUpgrades
         };
 
         shopView.Bind(shop, domainCatalog, ctx, iconProvider);

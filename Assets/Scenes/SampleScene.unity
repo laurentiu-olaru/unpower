@@ -184085,6 +184085,7 @@ GameObject:
   - component: {fileID: 1338442365}
   - component: {fileID: 1338442366}
   - component: {fileID: 1338442367}
+  - component: {fileID: 1338442368}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -184356,6 +184357,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FlashTest
   flashOverlay: {fileID: 1681435078}
   duration: 0.08
+--- !u!114 &1338442368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338442355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd78779d590bd7248b25f1bacb60e7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerUpgradesAdapter
+  healthView: {fileID: 1338442361}
+  damageBonus: 5
+  fireRateMultiplier: 1.2
 --- !u!1 &1485396161
 GameObject:
   m_ObjectHideFlags: 0
@@ -184605,6 +184621,7 @@ MonoBehaviour:
   scoreView: {fileID: 1338442363}
   placementController: {fileID: 1619773221}
   shopView: {fileID: 1077832932}
+  playerUpgrades: {fileID: 1338442368}
 --- !u!4 &1607032308
 Transform:
   m_ObjectHideFlags: 0
