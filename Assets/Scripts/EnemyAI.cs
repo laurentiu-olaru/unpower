@@ -53,12 +53,16 @@ public class EnemyAI : MonoBehaviour, ITargetable
     {
         if (Time.time > lastAttackTime + attackSpeed)
         {
+
             IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
             if (damageable != null && !collision.gameObject.CompareTag("Enemy"))
             {
                 damageable.TakeDamage(damage);
                 lastAttackTime = Time.time;
             }
+
+            var flash = collision.collider.GetComponentInChildren<HitFlash>();
+            flash?.ForceFlash();
         }
     }
 }
