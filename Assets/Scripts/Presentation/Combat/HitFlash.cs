@@ -12,7 +12,7 @@ public class HitFlash : MonoBehaviour
     [Header("Flash settings")]
     public Color flashColor =Color.white;
     public float flashDuration = 0.06f;
-    public int flashes = 2;
+    public int flashes = 1;
     private Color _originalColor;
     private Coroutine _routine;
 
@@ -30,6 +30,10 @@ public class HitFlash : MonoBehaviour
         Debug.Log($"HitFlash OnEnableon {name}");
         if (health == null)
             Debug.Log($"Healts is null on {name}");
+        // TEMP: support HealthView for now
+        var hv = GetComponentInParent<HealthView>();
+        if (hv != null)
+            hv.Damaged += OnDamaged;
 
         Debug.Log($"HitFlash subscribing to health on {health.name} (Id={health.GetInstanceID()}");
 
@@ -43,6 +47,10 @@ public class HitFlash : MonoBehaviour
     {
         if (health != null)
             health.Damaged -= OnDamaged;
+        //TEMP: support HealthView for now
+        var hv = GetComponentInParent<HealthView>();
+        if (hv != null)
+            hv.Damaged -= OnDamaged;
     }
 
     void OnDamaged(int amount)

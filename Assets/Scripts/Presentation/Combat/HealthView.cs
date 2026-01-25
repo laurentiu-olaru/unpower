@@ -1,8 +1,13 @@
+using System;
 using UnityEngine;
+
 
 public class HealthView : MonoBehaviour, IDamageable
 {
-	public int maxHP = 100;
+
+    public event Action<int> Damaged;
+
+    public int maxHP = 100;
 	public GameObject gameOverUI;
 
 	public HealthComponent Health => health;
@@ -15,8 +20,13 @@ public class HealthView : MonoBehaviour, IDamageable
 		health.OnDied += HandleDeath;
 	}
 
-	public void TakeDamage(int amount) => health.TakeDamage(amount);
-	public void Heal(int amount) => health.Heal(amount);
+    public void TakeDamage(int amount)
+    {
+        health.TakeDamage(amount);
+        Damaged?.Invoke(amount); 
+    }
+
+    public void Heal(int amount) => health.Heal(amount);
 
 	void HandleDeath()
 	{

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingDefinitionSO
   id: building_shop
   displayName: Shop
-  prefab: {fileID: 4344936122549543592, guid: 0aa47ce271a81fc4ea63a32c90737372, type: 3}
+  prefab: {fileID: 8737109320295855162, guid: 3245fc29b05e92e40a326832399dcba0, type: 3}

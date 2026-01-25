@@ -61,8 +61,8 @@ public class EnemyAI : MonoBehaviour, ITargetable
                 lastAttackTime = Time.time;
             }
 
-            var flash = collision.collider.GetComponentInChildren<HitFlash>();
-            flash?.ForceFlash();
+            //var flash = collision.collider.GetComponentInChildren<HitFlash>();
+            //flash?.ForceFlash();
         }
     }
 }
