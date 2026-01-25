@@ -15,8 +15,15 @@ public class ShopView : MonoBehaviour
 	[SerializeField] private string defaultHeaderText = "Build Menu";
 	[SerializeField] private float feedbackSeconds = 1.5f;
 
-	// NEW: lets another Unity script react (e.g., close build menu)
-	public event Action OnPurchaseSucceeded;
+    [Header("Audio")]
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip buySuccessClip;
+    [SerializeField, Range(0f, 1f)] private float buyVolume = 0.4f;
+
+    [SerializeField] private AudioClip buyFailClip;
+    [SerializeField, Range(0f, 1f)] private float failVolume = 0.5f;
+
+    public event Action OnPurchaseSucceeded;
 
     private ShopComponent shop;
     private IShopCatalog catalog;
@@ -97,7 +104,17 @@ public class ShopView : MonoBehaviour
         {
 			ShowTemporaryMessage(result.Reason);
 		}
-            
+
+        if (result.Success && buySuccessClip != null)
+        {
+            if (sfxSource != null)
+                sfxSource.PlayOneShot(buySuccessClip, buyVolume);
+        }
+         else if (!result.Success && buyFailClip != null)
+         {
+            if (sfxSource != null)
+                sfxSource.PlayOneShot(buyFailClip, failVolume);
+         }
 
         if (result.Success)
             OnPurchaseSucceeded?.Invoke();

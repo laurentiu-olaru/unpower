@@ -20,6 +20,10 @@ public class HealthView : MonoBehaviour, IDamageable
     [SerializeField] private AudioClip hitClip;
     [SerializeField, Range(0f, 1f)] private float hitVolume = 1f;
 
+    [Header("Death Audio")]
+    [SerializeField] private AudioClip deathClip;
+    [SerializeField, Range(0f, 1f)] private float deathVolume = 0.8f;
+
 
     void Awake()
 	{
@@ -45,10 +49,13 @@ public class HealthView : MonoBehaviour, IDamageable
 
 	void HandleDeath()
 	{
-		if (gameOverUI != null)
+        if (deathClip != null)
+            AudioSource.PlayClipAtPoint(deathClip, transform.position, deathVolume);
+
+        if (gameOverUI != null)
 			gameOverUI.SetActive(true);
 
-		Time.timeScale = 0f;
+		Time.timeScale = 0.005f;//was 0 before
 
 		if (TryGetComponent(out SpriteRenderer sr))
 			sr.enabled = false;
