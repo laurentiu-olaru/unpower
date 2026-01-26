@@ -6,6 +6,8 @@ public class HitFlash : MonoBehaviour
 {
     [Header("Ref")]
     public HealthBehaviour health;
+    private EnemyHealthView _enemyHealthView;
+
     //public SpriteRenderer spriteRenderer;
     public GameObject flashOverlay;
 
@@ -20,6 +22,7 @@ public class HitFlash : MonoBehaviour
     {
         if(health == null)
             health = GetComponent<HealthBehaviour>() ?? GetComponentInParent<HealthBehaviour>();
+        _enemyHealthView = GetComponentInParent<EnemyHealthView>();
 
         if (flashOverlay != null)
             flashOverlay.SetActive(false);
@@ -34,6 +37,10 @@ public class HitFlash : MonoBehaviour
         var hv = GetComponentInParent<HealthView>();
         if (hv != null)
             hv.Damaged += OnDamaged;
+
+        if (_enemyHealthView != null)
+            _enemyHealthView.Damaged += OnEnemyDamaged;
+
 
         Debug.Log($"HitFlash subscribing to health on {health.name} (Id={health.GetInstanceID()}");
 
@@ -51,6 +58,10 @@ public class HitFlash : MonoBehaviour
         var hv = GetComponentInParent<HealthView>();
         if (hv != null)
             hv.Damaged -= OnDamaged;
+
+        if (_enemyHealthView != null)
+            _enemyHealthView.Damaged -= OnEnemyDamaged;
+
     }
 
     void OnDamaged(int amount)
@@ -59,6 +70,10 @@ public class HitFlash : MonoBehaviour
             StopCoroutine(_routine);
         Debug.Log("FLASH!!!!!!!");
         _routine = StartCoroutine(FlashRoutine());
+    }
+    private void OnEnemyDamaged(int amount)
+    {
+        OnDamaged(amount);
     }
 
     public void ForceFlash()
@@ -70,6 +85,8 @@ public class HitFlash : MonoBehaviour
 
     private IEnumerator FlashRoutine()
     {
+        if (flashOverlay == null)
+            yield break;
         for (int i =0; i < flashes; i++)
         {
             flashOverlay.SetActive(true);

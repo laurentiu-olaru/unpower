@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class EnemyHealthView : MonoBehaviour, IDamageable, IHealthInitializable
 {
@@ -18,6 +19,7 @@ public class EnemyHealthView : MonoBehaviour, IDamageable, IHealthInitializable
 
     private int coinsToDrop = 1;
 
+    public event Action<int> Damaged; // amount
 
     // Called by difficulty system BEFORE init
     public void SetMaxHp(int newMaxHp)
@@ -35,6 +37,7 @@ public class EnemyHealthView : MonoBehaviour, IDamageable, IHealthInitializable
     {
         EnsureInitialized();              // makes sure health exists
         health.TakeDamage(amount);        // triggers UI + death via events
+        Damaged?.Invoke(amount);
     }
 
     private void EnsureInitialized()
@@ -65,7 +68,7 @@ public class EnemyHealthView : MonoBehaviour, IDamageable, IHealthInitializable
 
     private void Die()
     {
-        if (coinPrefab != null && Random.value <= dropChance)
+        if (coinPrefab != null && UnityEngine.Random.value <= dropChance)
         {
             for (int i = 0; i < coinsToDrop; i++)
                 Instantiate(coinPrefab, transform.position, Quaternion.identity);

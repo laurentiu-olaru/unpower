@@ -184439,6 +184439,7 @@ GameObject:
   - component: {fileID: 1338442367}
   - component: {fileID: 1338442368}
   - component: {fileID: 1338442369}
+  - component: {fileID: 1338442370}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -184827,6 +184828,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1338442370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338442355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d94cb65465e2c2049ab07cf016cc70c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerRangedDamageModifier
 --- !u!1 &1485396161
 GameObject:
   m_ObjectHideFlags: 0
@@ -185470,7 +185483,7 @@ SpriteRenderer:
   m_SortingOrder: 5
   m_MaskInteraction: 0
   m_Sprite: {fileID: 6122472025495218818, guid: ec475817cb04b3843897888b33e1d529, type: 3}
-  m_Color: {r: 1, g: 0.3443396, b: 0.3443396, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.01342535, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

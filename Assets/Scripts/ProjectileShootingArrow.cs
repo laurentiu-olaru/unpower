@@ -11,7 +11,13 @@ public class Projectile : MonoBehaviour
 		Destroy(gameObject, lifetime);
 	}
 
-	public void Launch(Vector2 dir)
+    public void SetDamage(int newDamage)
+    {
+        damage = Mathf.Max(0, newDamage);
+    }
+
+
+    public void Launch(Vector2 dir)
 	{
 		GetComponent<Rigidbody2D>().linearVelocity = dir * speed;
 	}
