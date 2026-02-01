@@ -53,11 +53,33 @@ public class TowerBehavior : MonoBehaviour, IBuilding
 
 	void Shoot(Transform target)
 	{
-		GameObject proj = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+		GameObject go = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
 
-		// If your projectile has a "Seek" function, you can pass the target
-		// For now, we'll just give it a direction
-		Vector2 direction = (target.position - transform.position).normalized;
-		proj.GetComponent<Rigidbody2D>().linearVelocity = direction * 10f; // Speed of 10
+		var projView = go.GetComponent<ProjectileView>();
+		if (projView == null)
+		{
+			Debug.LogError("[Tower] Projectile prefab missing ProjectileView.");
+			Destroy(go);
+			return;
+		}
+
+		Vector2 dir = (target.position - transform.position).normalized;
+
+		int damage = GetComponent<TowerAttackStatsView>()?.GetProjectileDamage() ?? 10;
+
+		float projSpeed = 10f;
+		float lifetime = 5f;
+
+		projView.Configure(new ProjectileConfig(dir, projSpeed, damage, lifetime), gameObject);
 	}
+
+
+	//void ShootOld(Transform target)
+	//{
+	//	GameObject proj = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+	//	// If your projectile has a "Seek" function, you can pass the target
+	//	// For now, we'll just give it a direction
+	//	Vector2 direction = (target.position - transform.position).normalized;
+	//	proj.GetComponent<Rigidbody2D>().linearVelocity = direction * 10f; // Speed of 10
+	//}
 }

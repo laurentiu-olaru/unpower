@@ -46,19 +46,29 @@ public class PlayerController : MonoBehaviour
 
 
 	void Shoot()
-    {
-        Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mouse.z = 0;
+	{
+		Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		mouse.z = 0;
 
-        Vector2 dir = (mouse - firePoint.position).normalized;
+		Vector2 dir = (mouse - firePoint.position).normalized;
 
-        GameObject go = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+		GameObject go = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
 
-		var proj = go.GetComponent<Projectile>();
+		var projView = go.GetComponent<ProjectileView>();
+		if (projView == null)
+		{
+			Debug.LogError("[PlayerController] Projectile prefab missing ProjectileView.");
+			Destroy(go);
+			return;
+		}
 
-		int bonus = GetComponent<PlayerRangedDamageModifier>()?.BonusDamage ?? 0;
-		proj.SetDamage(proj.damage + bonus);
+		int damage = GetComponent<PlayerAttackStatsView>()?.GetProjectileDamage() ?? 10;
 
-		proj.GetComponent<Projectile>().Launch(dir);
-    }
+		// You can expose these as fields later
+		float projSpeed = 10f;
+		float lifetime = 5f;
+
+		projView.Configure(new ProjectileConfig(dir, projSpeed, damage, lifetime), gameObject);
+	}
+
 }

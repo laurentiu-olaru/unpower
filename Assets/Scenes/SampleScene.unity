@@ -184441,6 +184441,7 @@ GameObject:
   - component: {fileID: 1338442369}
   - component: {fileID: 1338442370}
   - component: {fileID: 1338442371}
+  - component: {fileID: 1338442372}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -184855,6 +184856,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f062ca9e84fcf854ab410638ac66f614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMoveSpeedModifier
+--- !u!114 &1338442372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338442355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1a0cdbd58595f4eb5982ae34a41d87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttackStatsView
+  baseProjectileDamage: 10
 --- !u!1 &1485396161
 GameObject:
   m_ObjectHideFlags: 0
