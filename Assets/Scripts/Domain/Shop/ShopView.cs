@@ -98,6 +98,9 @@ public class ShopView : MonoBehaviour
         if (feedbackText != null)
         {
 			ShowTemporaryMessage("Purchased! Place it...");
+            //DEBUG
+			Debug.Log($"[ShopView] TryBuy({product.Id}) success={result.Success}");
+
 			OnPurchaseSucceeded?.Invoke();
 		}
         else

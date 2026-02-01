@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 681634a44d37e144dac2a2d607d65acf
+guid: fb999b46d9ce24f4baef36f8a8feea79
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -183985229577494478
-    second: barracks-new_0
+      213: 1988104364668566202
+    second: BowIcon_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,11 +46,11 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 7
-  spritePivot: {x: 0.5, y: 0}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: barracks-new_0
+      name: BowIcon_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 512
-        height: 505
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2306d13986a527df0800000000000000
-      internalID: -183985229577494478
+      spriteID: aba3970e26a279b10800000000000000
+      internalID: 1988104364668566202
       vertices: []
       indices: 
       edges: []
@@ -125,8 +125,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      barracks-new_0: -183985229577494478
+      BowIcon_0: 1988104364668566202
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

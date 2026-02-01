@@ -29,24 +29,36 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
-    {
-        Vector2 input = new Vector2(
-            Input.GetAxisRaw("Horizontal"),
-            Input.GetAxisRaw("Vertical")
-        );
+	void FixedUpdate()
+	{
+		Vector2 input = new Vector2(
+			Input.GetAxisRaw("Horizontal"),
+			Input.GetAxisRaw("Vertical")
+		);
 
-        rb.linearVelocity = motor.ComputeVelocity(input);
-    }
+		float bonusSpeed = GetComponent<PlayerMoveSpeedModifier>()?.BonusSpeed ?? 0f;
 
-    void Shoot()
+		//temporary motor so upgrades apply immediately
+		var runtimeMotor = new PlayerMotor(speed + bonusSpeed);
+
+		rb.linearVelocity = runtimeMotor.ComputeVelocity(input);
+	}
+
+
+	void Shoot()
     {
         Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouse.z = 0;
 
         Vector2 dir = (mouse - firePoint.position).normalized;
 
-        GameObject proj = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
-        proj.GetComponent<Projectile>().Launch(dir);
+        GameObject go = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+
+		var proj = go.GetComponent<Projectile>();
+
+		int bonus = GetComponent<PlayerRangedDamageModifier>()?.BonusDamage ?? 0;
+		proj.SetDamage(proj.damage + bonus);
+
+		proj.GetComponent<Projectile>().Launch(dir);
     }
 }

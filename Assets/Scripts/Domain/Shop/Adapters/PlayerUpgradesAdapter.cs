@@ -6,10 +6,39 @@ public class PlayerUpgradesAdapter : MonoBehaviour, IPlayerUpgrades
     public HealthView healthView;
 
     [Header("Serialized stats for easy change")]
-    public int damageBonus = 5;
+    public int damageBonus = 20;
     public float fireRateMultiplier = 1.2f;
 
-    public void AddMaxHp(int amount)
+	[SerializeField] private PlayerRangedDamageModifier rangedDamage;
+	[SerializeField] private PlayerMoveSpeedModifier moveSpeed;
+	void Awake()
+	{
+		if (rangedDamage == null) rangedDamage = GetComponent<PlayerRangedDamageModifier>();
+		if (moveSpeed == null) moveSpeed = GetComponent<PlayerMoveSpeedModifier>();
+	}
+
+	public void AddArrowDamage(int amount)
+	{
+		if (rangedDamage == null)
+		{
+			Debug.LogWarning("[Upgrades] Missing PlayerRangedDamageModifier on Player.");
+			return;
+		}
+		rangedDamage.AddBonus(amount);
+		Debug.Log($"[Upgrades] Arrow Damage +{amount}");
+	}
+
+	public void AddMoveSpeed(float amount)
+	{
+		if (moveSpeed == null)
+		{
+			Debug.LogWarning("[Upgrades] Missing PlayerMoveSpeedModifier on Player.");
+			return;
+		}
+		moveSpeed.AddBonus(amount);
+		Debug.Log($"[Upgrades] Move Speed +{amount}");
+	}
+	public void AddMaxHp(int amount)
     {
         if (healthView == null) return;
 

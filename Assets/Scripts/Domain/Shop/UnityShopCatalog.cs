@@ -35,7 +35,7 @@ public sealed class UnityShopCatalog : IShopCatalog
                     so.id,
                     so.displayName,
                     so.cost,
-                    (UpgradeProduct.UpgradeType)so.upgradeKind,
+					MapUpgradeKind(so.upgradeKind),
                     so.upgradeIntValue,
                     so.upgradeFloatValue
                 );
@@ -57,4 +57,18 @@ public sealed class UnityShopCatalog : IShopCatalog
 
         return null;
     }
+
+	private static UpgradeProduct.UpgradeType MapUpgradeKind(UpgradeKind kind)
+	{
+		return kind switch
+		{
+			UpgradeKind.MaxHp => UpgradeProduct.UpgradeType.MaxHp,
+			UpgradeKind.Damage => UpgradeProduct.UpgradeType.Damage,
+			UpgradeKind.FireRateMultiplier => UpgradeProduct.UpgradeType.FireRateMultiplier,
+			UpgradeKind.ArrowDamage => UpgradeProduct.UpgradeType.ArrowDamage,
+			UpgradeKind.MoveSpeed => UpgradeProduct.UpgradeType.MoveSpeed,
+			_ => UpgradeProduct.UpgradeType.Damage
+		};
+	}
+
 }

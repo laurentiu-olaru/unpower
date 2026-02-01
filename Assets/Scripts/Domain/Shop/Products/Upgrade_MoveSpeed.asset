@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 023a6bda450815b4fb147df8dffba84d, type: 3}
-  m_Name: Upgrade_Damage
+  m_Name: Upgrade_MoveSpeed
   m_EditorClassIdentifier: Assembly-CSharp::ShopProductSO
-  id: upgrade_damage_5
-  displayName: +20 Damage
-  cost: 5
+  id: upgrade_move_speed
+  displayName: Movement Speed +5
+  cost: 10
   type: 0
-  icon: {fileID: -4976933874930398042, guid: eafed78dfc7496e489dd3a73d7d96372, type: 3}
-  upgradeKind: 1
-  upgradeIntValue: 20
-  upgradeFloatValue: 0
+  icon: {fileID: 5297214435932668050, guid: 6c55a885d9a878e468a187a3193309ec, type: 3}
+  upgradeKind: 3
+  upgradeIntValue: 5
+  upgradeFloatValue: 5
   buildingDefinition: {fileID: 0}
   buffId: 
   buffDurationSeconds: 3600

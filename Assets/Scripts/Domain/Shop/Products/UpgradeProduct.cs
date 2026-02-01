@@ -1,6 +1,6 @@
 public sealed class UpgradeProduct : IShopProduct
 {
-    public enum UpgradeType { MaxHp, Damage, FireRateMultiplier }
+    public enum UpgradeType { MaxHp, Damage, FireRateMultiplier, ArrowDamage, MoveSpeed }
 
     public string Id { get; }
     public string DisplayName { get; }
@@ -20,7 +20,8 @@ public sealed class UpgradeProduct : IShopProduct
         this.floatValue = floatValue;
     }
 
-    public void Apply(ShopContext context)
+
+	public void Apply(ShopContext context)
     {
         var upgrades = context.PlayerUpgrades;
         if (upgrades == null) return;
@@ -36,6 +37,13 @@ public sealed class UpgradeProduct : IShopProduct
             case UpgradeType.FireRateMultiplier:
                 upgrades.AddFireRateMultiplier(floatValue);
                 break;
-        }
-    }
+			case UpgradeType.ArrowDamage:
+				upgrades.AddArrowDamage(intValue);
+				break;
+			case UpgradeType.MoveSpeed:
+				upgrades.AddMoveSpeed(floatValue);
+				break;
+
+		}
+	}
 }

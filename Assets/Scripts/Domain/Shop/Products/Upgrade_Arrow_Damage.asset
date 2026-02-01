@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 023a6bda450815b4fb147df8dffba84d, type: 3}
-  m_Name: Upgrade_Damage
+  m_Name: Upgrade_Arrow_Damage
   m_EditorClassIdentifier: Assembly-CSharp::ShopProductSO
-  id: upgrade_damage_5
-  displayName: +20 Damage
-  cost: 5
+  id: upgrade_arrow_damage
+  displayName: Arrow Damage +25
+  cost: 3
   type: 0
-  icon: {fileID: -4976933874930398042, guid: eafed78dfc7496e489dd3a73d7d96372, type: 3}
-  upgradeKind: 1
-  upgradeIntValue: 20
+  icon: {fileID: 1988104364668566202, guid: fb999b46d9ce24f4baef36f8a8feea79, type: 3}
+  upgradeKind: 4
+  upgradeIntValue: 25
   upgradeFloatValue: 0
   buildingDefinition: {fileID: 0}
   buffId: 

@@ -37,5 +37,7 @@ public enum UpgradeKind
 {
     MaxHp,
     Damage,
-    FireRateMultiplier
+    FireRateMultiplier,
+    MoveSpeed,
+    ArrowDamage
 }
