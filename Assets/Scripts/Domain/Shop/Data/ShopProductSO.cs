@@ -39,5 +39,6 @@ public enum UpgradeKind
     Damage,
     FireRateMultiplier,
     MoveSpeed,
-    ArrowDamage
+    ArrowDamage,
+	TowerDamage
 }

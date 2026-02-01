@@ -1,6 +1,6 @@
 public sealed class UpgradeProduct : IShopProduct
 {
-    public enum UpgradeType { MaxHp, Damage, FireRateMultiplier, ArrowDamage, MoveSpeed }
+    public enum UpgradeType { MaxHp, Damage, FireRateMultiplier, ArrowDamage, MoveSpeed, TowerDamage }
 
     public string Id { get; }
     public string DisplayName { get; }
@@ -42,6 +42,9 @@ public sealed class UpgradeProduct : IShopProduct
 				break;
 			case UpgradeType.MoveSpeed:
 				upgrades.AddMoveSpeed(floatValue);
+				break;
+			case UpgradeType.TowerDamage:
+				context.PlayerUpgrades?.AddTowerDamage(intValue);
 				break;
 
 		}

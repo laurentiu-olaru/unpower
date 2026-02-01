@@ -14,6 +14,11 @@ public class TowerAttackStatsView : MonoBehaviour
 
 	public int GetProjectileDamage()
 	{
-		return Mathf.Max(0, baseProjectileDamage + BonusProjectileDamage);
+		int globalBonus = TowerDamageGlobalUpgrades.Instance != null
+			? TowerDamageGlobalUpgrades.Instance.BonusDamage
+			: 0;
+
+		return Mathf.Max(0, baseProjectileDamage + BonusProjectileDamage + globalBonus);
 	}
+
 }

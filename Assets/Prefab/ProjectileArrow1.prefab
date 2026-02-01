@@ -19,8 +19,8 @@ GameObject:
   - component: {fileID: 3133282108158419189}
   - component: {fileID: 1440187202140015320}
   - component: {fileID: 3697083363366821987}
-  - component: {fileID: 4260687556803636917}
   - component: {fileID: 5115743595776188869}
+  - component: {fileID: 797997880613950876}
   m_Layer: 0
   m_Name: ProjectileArrow1
   m_TagString: Untagged
@@ -354,20 +354,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2041e8181b46184bb9f2db82d06c775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageOnHitView
---- !u!114 &4260687556803636917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6683670502644987477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ce6d48960dfd4b42b84d713ae5f85d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ProjectileView
-  defaultSpeed: 10
-  defaultLifetime: 12
 --- !u!114 &5115743595776188869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,3 +366,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2041e8181b46184bb9f2db82d06c775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageOnHitView
+--- !u!114 &797997880613950876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6683670502644987477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce6d48960dfd4b42b84d713ae5f85d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileView
+  defaultSpeed: 30
+  defaultLifetime: 8

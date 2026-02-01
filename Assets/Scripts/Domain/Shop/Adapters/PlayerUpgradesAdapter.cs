@@ -19,14 +19,17 @@ public class PlayerUpgradesAdapter : MonoBehaviour, IPlayerUpgrades
 
 	public void AddArrowDamage(int amount)
 	{
-		if (rangedDamage == null)
+		var stats = GetComponent<PlayerAttackStatsView>();
+		if (stats == null)
 		{
-			Debug.LogWarning("[Upgrades] Missing PlayerRangedDamageModifier on Player.");
+			Debug.LogWarning("[Upgrades] Missing PlayerAttackStatsView on Player.");
 			return;
 		}
-		rangedDamage.AddBonus(amount);
-		Debug.Log($"[Upgrades] Arrow Damage +{amount}");
+
+		stats.AddProjectileDamage(amount);
+		Debug.Log($"[Upgrades] Arrow Damage +{amount} (new total dmg={stats.GetProjectileDamage()})");
 	}
+
 
 	public void AddMoveSpeed(float amount)
 	{
@@ -59,4 +62,16 @@ public class PlayerUpgradesAdapter : MonoBehaviour, IPlayerUpgrades
         if (multiplier <= 0f) return;
         fireRateMultiplier *= multiplier;
     }
+	public void AddTowerDamage(int amount)
+	{
+		if (TowerDamageGlobalUpgrades.Instance == null)
+		{
+			Debug.LogWarning("[Upgrades] TowerDamageGlobalUpgrades missing in scene.");
+			return;
+		}
+
+		TowerDamageGlobalUpgrades.Instance.AddBonusDamage(amount);
+		Debug.Log($"[Upgrades] Tower Damage +{amount}");
+	}
+
 }
