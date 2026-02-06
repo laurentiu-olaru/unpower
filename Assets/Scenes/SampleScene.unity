@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 82154998}
   - component: {fileID: 82154997}
+  - component: {fileID: 82154999}
   m_Layer: 0
   m_Name: GameSystem
   m_TagString: Untagged
@@ -163,6 +164,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &82154999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82154996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eea1bcdfbfa9e449acfbf9a1e200097, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BarracksGlobalUpgrades
 --- !u!1 &97617177
 GameObject:
   m_ObjectHideFlags: 0

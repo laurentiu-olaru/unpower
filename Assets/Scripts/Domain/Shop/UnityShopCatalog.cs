@@ -67,7 +67,8 @@ public sealed class UnityShopCatalog : IShopCatalog
 			UpgradeKind.FireRateMultiplier => UpgradeProduct.UpgradeType.FireRateMultiplier,
 			UpgradeKind.ArrowDamage => UpgradeProduct.UpgradeType.ArrowDamage,
 			UpgradeKind.MoveSpeed => UpgradeProduct.UpgradeType.MoveSpeed,
-			_ => UpgradeProduct.UpgradeType.Damage
+            UpgradeKind.BarracksUpgrade => UpgradeProduct.UpgradeType.BarracksUpgrade,
+            _ => UpgradeProduct.UpgradeType.Damage
 		};
 	}
 

@@ -12,22 +12,25 @@ public class Barracks : MonoBehaviour, IBuilding
 	private List<GameObject> activeAllies = new List<GameObject>();
 	private bool isPlaced = false;
 
-    // This is called by your PlacementManager when the building is built
+    private BarracksGlobalUpgrades upgrades;
 
+
+
+    // This is called by your PlacementManager when the building is built
     public void OnPlaced()
     {
         isPlaced = true;
+
+        upgrades = BarracksGlobalUpgrades.Instance;
+        if (upgrades != null)
+            upgrades.OnChanged += HandleUpgradesChanged;
+
+        // Apply upgrades immediately on placement too (important for newly placed barracks)
+        ApplyUpgradesNow();
+
         SpawnWave();
         StartCoroutine(SpawnRoutine());
     }
- //   public void InitializeBarracks()
-	//{
-	//	isPlaced = true;
-	//	// Spawn the first set immediately
-	//	SpawnWave();
-	//	// Start the 2-minute timer
-	//	StartCoroutine(SpawnRoutine());
-	//}
 
 	IEnumerator SpawnRoutine()
 	{
@@ -42,23 +45,25 @@ public class Barracks : MonoBehaviour, IBuilding
 		}
 	}
 
-	void SpawnWave()
-	{
-		// Clean up any "null" entries in the list (allies that died)
-		activeAllies.RemoveAll(item => item == null);
+    void SpawnWave()
+    {
+        activeAllies.RemoveAll(item => item == null);
 
-		HealSurvivors();
+        var upgrades = BarracksGlobalUpgrades.Instance;
 
-		// Check how many we can spawn without exceeding the limit
-		int spaceLeft = maxAllies - activeAllies.Count;
+        int effectiveMaxAllies = maxAllies + (upgrades != null ? upgrades.ExtraMaxAllies : 0);
 
-		for (int i = 0; i < spaceLeft; i++)
-		{
-			SpawnAlly();
-		}
-	}
+        if (upgrades != null && upgrades.HealAlliesEachWave)
+            HealSurvivors();
 
-	void HealSurvivors()
+        int spaceLeft = effectiveMaxAllies - activeAllies.Count;
+
+        for (int i = 0; i < spaceLeft; i++)
+            SpawnAlly();
+    }
+
+
+    void HealSurvivors()
 	{
 		for (int i = 0; i < activeAllies.Count; i++)
 		{
@@ -70,17 +75,130 @@ public class Barracks : MonoBehaviour, IBuilding
 		}
 	}
 
-	void SpawnAlly()
-	{
-		GameObject newAlly = Instantiate(allyPrefab, spawnPoint.position, Quaternion.identity);
+    void SpawnAlly()
+    {
+        GameObject newAlly = Instantiate(allyPrefab, spawnPoint.position, Quaternion.identity);
 
-		// Pass the Barracks transform to the ally so it knows where "home" is
-		AllyMeleeAI ai = newAlly.GetComponent<AllyMeleeAI>();
-		if (ai != null)
-		{
-			ai.homeBase = this.transform;
-		}
+        var upgrades = BarracksGlobalUpgrades.Instance;
 
-		activeAllies.Add(newAlly);
-	}
+        // Apply ally HP bonus + full heal on spawn (only after HP unlock)
+        if (upgrades != null && upgrades.HpUnlocked)
+        {
+            if (newAlly.TryGetComponent(out AllyHealth health))
+                health.AddMaxHealth(upgrades.AllyHpBonus, healToFull: true);
+        }
+
+        // Apply ally damage bonus (only after damage unlock)
+        if (upgrades != null && upgrades.DamageUnlocked)
+        {
+            if (newAlly.TryGetComponent(out AllyMeleeAI aiForDamage))
+                aiForDamage.attackDamage += upgrades.AllyDamageBonus;
+        }
+
+        // Existing homeBase wiring
+        AllyMeleeAI ai = newAlly.GetComponent<AllyMeleeAI>();
+        if (ai != null)
+            ai.homeBase = this.transform;
+
+        var up = BarracksGlobalUpgrades.Instance;
+        if (up != null)
+        {
+            var stamp = newAlly.GetComponent<AllyUpgradeStamp>();
+            if (stamp == null) stamp = newAlly.AddComponent<AllyUpgradeStamp>();
+
+            if (up.HpUnlocked && newAlly.TryGetComponent(out AllyHealth health))
+            {
+                health.ApplyMaxHealthBonusOnce(up.AllyHpBonus, stamp);
+                if (up.HealAlliesEachWave) health.HealToFull();
+            }
+
+            if (up.DamageUnlocked && newAlly.TryGetComponent(out AllyMeleeAI newAI))
+            {
+                ApplyDamageBonusOnce(newAI, up.AllyDamageBonus, stamp);
+            }
+        }
+
+
+        activeAllies.Add(newAlly);
+    }
+
+    void OnDestroy()
+    {
+        if (upgrades != null)
+            upgrades.OnChanged -= HandleUpgradesChanged;
+    }
+    private void HandleUpgradesChanged()
+    {
+        if (!isPlaced) return;
+
+        ApplyUpgradesNow();
+    }
+
+    private void ApplyUpgradesNow()
+    {
+        var up = BarracksGlobalUpgrades.Instance;
+        if (up == null) return;
+
+        // Clean dead allies from list
+        activeAllies.RemoveAll(a => a == null);
+
+        // Apply bonuses to EXISTING alive allies
+        ApplyBonusesToExistingAllies(up);
+
+        // Heal existing allies if unlocked
+        if (up.HealAlliesEachWave)
+            HealSurvivors();
+
+        // Spawn any missing allies immediately to reach new max
+        SpawnToMax(up);
+    }
+
+    private void ApplyBonusesToExistingAllies(BarracksGlobalUpgrades up)
+    {
+        for (int i = 0; i < activeAllies.Count; i++)
+        {
+            var ally = activeAllies[i];
+            if (ally == null) continue;
+
+            // HP bonus (apply to existing too)
+            if (up.HpUnlocked && ally.TryGetComponent(out AllyHealth health))
+            {
+                // We need to apply the maxHP bonus once per ally, not every time upgrades change.
+                // So we store applied bonuses on the ally (next step).
+                var stamp = ally.GetComponent<AllyUpgradeStamp>();
+                if (stamp == null) stamp = ally.AddComponent<AllyUpgradeStamp>();
+
+                health.ApplyMaxHealthBonusOnce(up.AllyHpBonus, stamp);
+            }
+
+            // Damage bonus (apply to existing too)
+            if (up.DamageUnlocked && ally.TryGetComponent(out AllyMeleeAI ai))
+            {
+                var stamp = ally.GetComponent<AllyUpgradeStamp>();
+                if (stamp == null) stamp = ally.AddComponent<AllyUpgradeStamp>();
+
+                ApplyDamageBonusOnce(ai, up.AllyDamageBonus, stamp);
+            }
+        }
+    }
+
+    private void ApplyDamageBonusOnce(AllyMeleeAI ai, int bonus, AllyUpgradeStamp stamp)
+    {
+        int toApply = bonus - stamp.AppliedDamageBonus;
+        if (toApply <= 0) return;
+
+        ai.attackDamage += toApply;
+        stamp.AppliedDamageBonus += toApply;
+    }
+
+    private void SpawnToMax(BarracksGlobalUpgrades up)
+    {
+        int effectiveMaxAllies = maxAllies + up.ExtraMaxAllies;
+        int spaceLeft = effectiveMaxAllies - activeAllies.Count;
+
+        for (int i = 0; i < spaceLeft; i++)
+            SpawnAlly(); // SpawnAlly will also apply bonuses to new ally
+    }
+
+
 }

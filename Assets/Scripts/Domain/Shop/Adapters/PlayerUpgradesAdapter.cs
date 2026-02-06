@@ -73,5 +73,20 @@ public class PlayerUpgradesAdapter : MonoBehaviour, IPlayerUpgrades
 		TowerDamageGlobalUpgrades.Instance.AddBonusDamage(amount);
 		Debug.Log($"[Upgrades] Tower Damage +{amount}");
 	}
+    public void AddBarracksUpgradeLevel(int amount)
+    {
+        Debug.Log($"[UpgradesAdapter] AddBarracksUpgradeLevel({amount}) called");
+
+        if (BarracksGlobalUpgrades.Instance == null)
+        {
+            Debug.LogWarning("[Upgrades] BarracksGlobalUpgrades missing in scene.");
+            return;
+        }
+
+        BarracksGlobalUpgrades.Instance.AddLevel(amount);
+        Debug.Log($"[Upgrades] Barracks PurchaseCount={BarracksGlobalUpgrades.Instance.PurchaseCount}");
+    }
+
+
 
 }

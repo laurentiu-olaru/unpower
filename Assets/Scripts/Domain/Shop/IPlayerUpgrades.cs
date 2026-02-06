@@ -6,5 +6,7 @@ public interface IPlayerUpgrades
 	void AddDamage(int amount);
 	void AddFireRateMultiplier(float multiplier);
 	void AddTowerDamage(int amount);
+    void AddBarracksUpgradeLevel(int amount);
+
 
 }

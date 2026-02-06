@@ -40,5 +40,6 @@ public enum UpgradeKind
     FireRateMultiplier,
     MoveSpeed,
     ArrowDamage,
-	TowerDamage
+	TowerDamage,
+    BarracksUpgrade
 }

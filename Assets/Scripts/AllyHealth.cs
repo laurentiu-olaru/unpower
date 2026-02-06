@@ -42,8 +42,29 @@ public class AllyHealth : MonoBehaviour, IDamageable, IHealable
 		}
 	}
 
+    public void AddMaxHealth(float amount, bool healToFull = true)
+    {
+        maxHealth += amount;
+        if (healToFull)
+            currentHealth = maxHealth;
 
-	void Die()
+        UpdateHealthUI();
+    }
+
+    public void ApplyMaxHealthBonusOnce(float desiredBonusTotal, AllyUpgradeStamp stamp)
+    {
+        float toApply = desiredBonusTotal - stamp.AppliedHpBonus;
+        if (toApply <= 0f) return;
+
+        maxHealth += toApply;
+        currentHealth = Mathf.Min(currentHealth + toApply, maxHealth); // keeps % roughly, or just clamp
+        stamp.AppliedHpBonus += Mathf.RoundToInt(toApply);
+
+        UpdateHealthUI();
+    }
+
+
+    void Die()
 	{
 		// You could add a death particle effect here
 		Destroy(gameObject);
