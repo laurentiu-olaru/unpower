@@ -2,7 +2,8 @@ public sealed class BuildingProduct : IShopProduct
 {
     public string Id { get; }
     public string DisplayName { get; }
-    public int Cost { get; }
+    public int BaseCost { get; }
+    public ShopProductType ProductType => ShopProductType.Building; // or Buff
 
     private readonly IBuildingDefinition definition;
 
@@ -10,7 +11,7 @@ public sealed class BuildingProduct : IShopProduct
     {
         Id = id;
         DisplayName = name;
-        Cost = cost;
+        BaseCost = cost;
         this.definition = definition;
     }
 

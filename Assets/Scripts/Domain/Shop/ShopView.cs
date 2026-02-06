@@ -56,8 +56,11 @@ public class ShopView : MonoBehaviour
         {
 			Sprite icon = null;
 			iconProvider?.TryGetIcon(product.Id, out icon);
-			var row = Instantiate(rowPrefab, listRoot);
-            row.Bind(product, OnBuyClicked, icon);
+
+            int priceNow = shop != null ? shop.GetCurrentPrice(product.Id) : product.BaseCost;
+
+            var row = Instantiate(rowPrefab, listRoot);
+            row.Bind(product, priceNow, OnBuyClicked, icon);
         }
     }
 
@@ -97,12 +100,12 @@ public class ShopView : MonoBehaviour
 
         if (feedbackText != null)
         {
-			ShowTemporaryMessage("Purchased! Place it...");
+            ShowTemporaryMessage(result.Success ? "Purchased! Place it..." : result.Reason);
             //DEBUG
-			Debug.Log($"[ShopView] TryBuy({product.Id}) success={result.Success}");
+            Debug.Log($"[ShopView] TryBuy({product.Id}) success={result.Success}");
 
 			OnPurchaseSucceeded?.Invoke();
-		}
+        }
         else
         {
 			ShowTemporaryMessage(result.Reason);
@@ -120,7 +123,11 @@ public class ShopView : MonoBehaviour
          }
 
         if (result.Success)
+        {
             OnPurchaseSucceeded?.Invoke();
+            Rebuild();
+        }
+            
     }
 
 }

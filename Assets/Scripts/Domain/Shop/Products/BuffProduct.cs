@@ -2,7 +2,8 @@ public sealed class BuffProduct : IShopProduct
 {
     public string Id { get; }
     public string DisplayName { get; }
-    public int Cost { get; }
+    public int BaseCost { get; }
+    public ShopProductType ProductType => ShopProductType.Buff;
 
     private readonly string buffId;
     private readonly float durationSeconds;
@@ -11,7 +12,7 @@ public sealed class BuffProduct : IShopProduct
     {
         Id = id;
         DisplayName = name;
-        Cost = cost;
+        BaseCost = cost;
         this.buffId = buffId;
         this.durationSeconds = durationSeconds;
     }
