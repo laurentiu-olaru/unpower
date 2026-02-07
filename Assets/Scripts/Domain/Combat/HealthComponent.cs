@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class HealthComponent
 {
-    public int MaxHP { get; }
+    public int MaxHP { get; private set; }
+
     public int CurrentHP { get; private set; }
 
     public event Action OnDied;
@@ -39,4 +40,18 @@ public class HealthComponent
         CurrentHP = Math.Min(MaxHP, CurrentHP + amount);
         OnHealthChanged?.Invoke(CurrentHP, MaxHP);
     }
+    public void IncreaseMaxHp(int amount, bool healToFull)
+    {
+        if (amount <= 0) return;
+
+        MaxHP += amount;
+
+        if (healToFull)
+            CurrentHP = MaxHP;
+        else
+            CurrentHP = Math.Min(CurrentHP, MaxHP);
+
+        OnHealthChanged?.Invoke(CurrentHP, MaxHP);
+    }
+
 }

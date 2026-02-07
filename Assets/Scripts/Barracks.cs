@@ -84,8 +84,9 @@ public class Barracks : MonoBehaviour, IBuilding
         // Apply ally HP bonus + full heal on spawn (only after HP unlock)
         if (upgrades != null && upgrades.HpUnlocked)
         {
-            if (newAlly.TryGetComponent(out AllyHealth health))
-                health.AddMaxHealth(upgrades.AllyHpBonus, healToFull: true);
+            if (newAlly.TryGetComponent(out AllyHealthView health))
+                health.AddMaxHp(upgrades.AllyHpBonus, healToFull: true);
+
         }
 
         // Apply ally damage bonus (only after damage unlock)

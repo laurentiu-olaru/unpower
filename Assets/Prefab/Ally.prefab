@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2037014448816774219}
   - component: {fileID: 7788903248501833750}
   - component: {fileID: 1101017341062607191}
-  - component: {fileID: 6963496344094094645}
   - component: {fileID: 6037704574490538293}
+  - component: {fileID: -6109354245432021997}
   m_Layer: 0
   m_Name: Ally
   m_TagString: Ally
@@ -169,20 +169,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.16, y: 0.22}
   m_EdgeRadius: 0
---- !u!114 &6963496344094094645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5714044312056679855}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c74af7eee3729c40b214ff0318abb92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AllyHealth
-  maxHealth: 50
-  healthBarFill: {fileID: 1794351290436322676}
 --- !u!114 &6037704574490538293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,6 +187,20 @@ MonoBehaviour:
   attackDamage: 10
   attackRate: 1
   homeBase: {fileID: 0}
+--- !u!114 &-6109354245432021997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5714044312056679855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85cc72b4df0318647a9a2e2057fb07f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AllyHealthView
+  maxHP: 50
+  healthBarFill: {fileID: 1794351290436322676}
 --- !u!1001 &8285795622582427578
 PrefabInstance:
   m_ObjectHideFlags: 0
