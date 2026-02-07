@@ -2,15 +2,24 @@ using UnityEngine;
 
 public class EnemySpawnServiceView : MonoBehaviour, IEnemySpawnService
 {
-    [SerializeField] private GameObject enemyPrefab;
+	[SerializeField] private EnemyCatalogSO catalog;
 
-    public GameObject SpawnEnemy(Vector2 position)
-    {
-        if (enemyPrefab == null) return null;
+	public GameObject SpawnEnemy(string enemyId, Vector2 position)
+	{
+		if (catalog == null)
+		{
+			Debug.LogError("[EnemySpawnService] Missing EnemyCatalogSO.");
+			return null;
+		}
 
-        // Spawn inactive so nothing runs before we apply difficulty
-        var enemy = Instantiate(enemyPrefab, position, Quaternion.identity);
-        enemy.SetActive(false);
-        return enemy;
-    }
+		if (!catalog.TryGetPrefab(enemyId, out var prefab) || prefab == null)
+		{
+			Debug.LogError($"[EnemySpawnService] Unknown enemyId '{enemyId}'. Check catalog.");
+			return null;
+		}
+
+		var enemy = Instantiate(prefab, position, Quaternion.identity);
+		enemy.SetActive(false);
+		return enemy;
+	}
 }

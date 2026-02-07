@@ -17,8 +17,12 @@ public class WaveRunnerView : MonoBehaviour
 
     [SerializeField] private WaveHudView hud;
 
+	[SerializeField] private WaveEnemyPoolSO enemyPool;
+	[SerializeField] private string fallbackEnemyId = "melee";
 
-    private IEnemySpawnService spawnService;
+
+
+	private IEnemySpawnService spawnService;
     private IEnemyDifficultyApplier difficultyApplier;
 
     private WaveDifficultyCurve curve;
@@ -67,16 +71,33 @@ public class WaveRunnerView : MonoBehaviour
             for (int i = 0; i < plan.EnemyCount; i++)
             {
                 Vector2 pos = GetSpawnPosAroundPlayer();
-                var enemy = spawnService.SpawnEnemy(pos);
+				string enemyId = fallbackEnemyId;
 
-                int coinCount = 1 + ((currentWave - 1) / 5); // +1 coin every 5 waves
+				if (enemyPool != null && enemyPool.TryPickEnemyId(currentWave, out var picked))
+					enemyId = picked;
 
-                var ehv = enemy.GetComponent<EnemyHealthView>();
-                if (ehv != null)
-                    ehv.SetCoinsToDrop(coinCount);
+				var enemy = spawnService.SpawnEnemy(enemyId, pos);
 
 
-                if (enemy != null)
+				int coinCount = 1 + ((currentWave - 1) / 5); // +1 coin every 5 waves
+
+				if (enemy != null)
+				{
+					coinCount = 1 + ((currentWave - 1) / 5);
+
+					var ehv = enemy.GetComponent<EnemyHealthView>();
+					if (ehv != null)
+						ehv.SetCoinsToDrop(coinCount);
+
+					if (difficultyApplier != null)
+						difficultyApplier.Apply(enemy, plan.EnemyHpMultiplier, plan.EnemySpeedMultiplier, plan.EnemyDamageMultiplier);
+
+					enemy.SetActive(true);
+				}
+
+
+
+				if (enemy != null)
                 {
                     if (difficultyApplier != null)
                         difficultyApplier.Apply(enemy, plan.EnemyHpMultiplier, plan.EnemySpeedMultiplier, plan.EnemyDamageMultiplier);

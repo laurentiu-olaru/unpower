@@ -30,20 +30,25 @@ public class AllyMeleeAI : MonoBehaviour
         float closest = Mathf.Infinity;
         ITargetable nearest = null;
 
-        foreach (var hit in hits)
-        {
-            if (hit.TryGetComponent(out ITargetable t))
-            {
-                float d = Vector2.Distance(transform.position, t.GetTransform().position);
-                if (d < closest)
-                {
-                    closest = d;
-                    nearest = t;
-                }
-            }
-        }
+		foreach (var hit in hits)
+		{
+			// Only consider enemies
+			if (hit.gameObject.layer != LayerMask.NameToLayer("Enemy"))
+				continue;
 
-        target = nearest;
+			if (hit.TryGetComponent(out ITargetable t))
+			{
+				float d = Vector2.Distance(transform.position, t.GetTransform().position);
+				if (d < closest)
+				{
+					closest = d;
+					nearest = t;
+				}
+			}
+		}
+
+
+		target = nearest;
     }
 
     void MoveToAndAttackTarget()

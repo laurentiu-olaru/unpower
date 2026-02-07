@@ -16,7 +16,10 @@ public class EnemyRangedAttackView : MonoBehaviour
     [SerializeField] private float projectileLifetime = 4f;
     [SerializeField] private int projectileDamage = 5;
 
-    private float nextFireTime;
+
+	[SerializeField] private EnemyMageAnimatorView anim;
+
+	private float nextFireTime;
     private ITargetable target;
 
     void Update()
@@ -36,18 +39,34 @@ public class EnemyRangedAttackView : MonoBehaviour
             nextFireTime = Time.time + fireCooldown;
         }
     }
+	private void Awake()
+	{
+		if (anim == null) anim = GetComponent<EnemyMageAnimatorView>();
 
-    private void AcquireTarget()
+	}
+
+	private void AcquireTarget()
     {
-        // Keep current target if still valid and within detection
-        if (target != null)
-        {
-            var t = target.GetTransform();
-            if (t != null && Vector2.Distance(transform.position, t.position) <= detectionRange)
-                return;
-        }
+		// Keep current target if still valid and within detection
+		if (target != null)
+		{
+			var t = target.GetTransform();
+			if (t == null)
+			{
+				target = null;
+			}
+			else if (Vector2.Distance(transform.position, t.position) <= detectionRange)
+			{
+				return;
+			}
+			else
+			{
+				target = null;
+			}
+		}
 
-        target = FindNearestTargetable(detectionRange);
+
+		target = FindNearestTargetable(detectionRange);
     }
 
     private ITargetable FindNearestTargetable(float range)
@@ -82,8 +101,9 @@ public class EnemyRangedAttackView : MonoBehaviour
         if (projectilePrefab == null || firePoint == null) return;
 
         Vector2 dir = (targetPos - firePoint.position).normalized;
+		anim?.PlayAttack();
 
-        GameObject go = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+		GameObject go = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
 
         var pv = go.GetComponent<ProjectileView>();
         if (pv == null)
@@ -95,4 +115,16 @@ public class EnemyRangedAttackView : MonoBehaviour
 
         pv.Configure(new ProjectileConfig(dir, projectileSpeed, projectileDamage, projectileLifetime), gameObject);
     }
+
+	public void MultiplyDamage(float multiplier)
+	{
+		projectileDamage = Mathf.RoundToInt(projectileDamage * multiplier);
+	}
+
+	public void MultiplyFireRate(float multiplier)
+	{
+		// higher multiplier = faster firing
+		fireCooldown = Mathf.Max(0.1f, fireCooldown / multiplier);
+	}
+
 }

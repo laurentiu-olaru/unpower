@@ -19,7 +19,6 @@ GameObject:
   - component: {fileID: 3133282108158419189}
   - component: {fileID: 1440187202140015320}
   - component: {fileID: 3697083363366821987}
-  - component: {fileID: 5115743595776188869}
   - component: {fileID: 797997880613950876}
   m_Layer: 0
   m_Name: ProjectileMage
@@ -38,7 +37,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.1268, y: -0.1716, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -343,18 +342,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 392
 --- !u!114 &3697083363366821987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6683670502644987477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2041e8181b46184bb9f2db82d06c775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DamageOnHitView
---- !u!114 &5115743595776188869
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a148311fc3d07af49960c53cfe4d56e4, type: 3}
+  m_Name: EnemyCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyCatalogSO
+  enemies:
+  - id: melee
+    prefab: {fileID: 1654960383472127469, guid: b5f825e224b6cfa4da1ba731aa3e3cb4, type: 3}
+  - id: mage
+    prefab: {fileID: 2176469056052854023, guid: 3bafe8b1dff37d84a84d3ec0635dd391, type: 3}

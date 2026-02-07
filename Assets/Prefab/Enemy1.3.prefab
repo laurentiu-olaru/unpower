@@ -227,6 +227,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 324414915619107182, guid: 69f3d3bf4490df8419f751ee31f49312, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2294780909173062666}
+    - targetCorrespondingSourceObject: {fileID: 324414915619107182, guid: 69f3d3bf4490df8419f751ee31f49312, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2913812649822548504}
   m_SourcePrefab: {fileID: 100100000, guid: 69f3d3bf4490df8419f751ee31f49312, type: 3}
 --- !u!1 &1654960383472127469 stripped
 GameObject:
@@ -294,6 +297,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthBehaviour
   maxHP: 100
+--- !u!114 &-2913812649822548504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654960383472127469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbea3d44604ce5540874accdbde9a0f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TargetableView
 --- !u!114 &7246008607320133474 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8573141171723744225, guid: 69f3d3bf4490df8419f751ee31f49312, type: 3}

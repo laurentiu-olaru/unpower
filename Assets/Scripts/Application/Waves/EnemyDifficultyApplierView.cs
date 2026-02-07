@@ -17,11 +17,26 @@ public class EnemyDifficultyApplierView : MonoBehaviour, IEnemyDifficultyApplier
             }
         }
 
-        // Movement / damage (EnemyAI)
-        if (enemyInstance.TryGetComponent(out EnemyAI ai))
-        {
-            ai.speed *= speedMult;
-            ai.damage = Mathf.RoundToInt(ai.damage * damageMult);
-        }
-    }
+		// Movement / damage (EnemyAI)
+		// Melee enemies
+		if (enemyInstance.TryGetComponent(out EnemyAI ai))
+		{
+			ai.speed *= speedMult;
+			ai.damage = Mathf.RoundToInt(ai.damage * damageMult);
+		}
+
+		// Ranged enemies
+		if (enemyInstance.TryGetComponent(out EnemyRangedAttackView ranged))
+		{
+			ranged.MultiplyDamage(damageMult);
+			ranged.MultiplyFireRate(speedMult);
+		}
+
+		if (enemyInstance.TryGetComponent(out EnemyRangedMovementView rangedMove))
+		{
+			rangedMove.MultiplySpeed(speedMult);
+		}
+
+
+	}
 }
