@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1101017341062607191}
   - component: {fileID: 6037704574490538293}
   - component: {fileID: -6109354245432021997}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ally
   m_TagString: Ally
   m_Icon: {fileID: 0}
@@ -209,9 +209,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 343714106694253186}
     m_Modifications:
+    - target: {fileID: 2185407455997744918, guid: 1d2444c09e417ee4db4db42e9be7b906, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5216994049394131347, guid: 1d2444c09e417ee4db4db42e9be7b906, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5392136642854993333, guid: 1d2444c09e417ee4db4db42e9be7b906, type: 3}
       propertyPath: m_Name
       value: AllyHealthCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392136642854993333, guid: 1d2444c09e417ee4db4db42e9be7b906, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7645950851491273422, guid: 1d2444c09e417ee4db4db42e9be7b906, type: 3}
       propertyPath: m_Type
