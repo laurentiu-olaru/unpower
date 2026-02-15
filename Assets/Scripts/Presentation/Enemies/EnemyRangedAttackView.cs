@@ -17,6 +17,9 @@ public class EnemyRangedAttackView : MonoBehaviour
     [SerializeField] private int projectileDamage = 5;
 
 
+
+	[SerializeField] private EnemyMageFacingView facing;
+
 	[SerializeField] private EnemyMageAnimatorView anim;
 
 	private float nextFireTime;
@@ -41,6 +44,8 @@ public class EnemyRangedAttackView : MonoBehaviour
     }
 	private void Awake()
 	{
+		if (facing == null) facing = GetComponent<EnemyMageFacingView>();
+
 		if (anim == null) anim = GetComponent<EnemyMageAnimatorView>();
 
 	}
@@ -101,6 +106,8 @@ public class EnemyRangedAttackView : MonoBehaviour
         if (projectilePrefab == null || firePoint == null) return;
 
         Vector2 dir = (targetPos - firePoint.position).normalized;
+		facing?.FaceTargetDirection(dir);
+
 		anim?.PlayAttack();
 
 		GameObject go = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);

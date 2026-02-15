@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 5370742656686667203}
   - component: {fileID: -805033562947516679}
   - component: {fileID: -7779611888094795376}
+  - component: {fileID: 8745263491487896889}
   m_Layer: 6
   m_Name: EnemyMage
   m_TagString: Enemy
@@ -216,6 +217,7 @@ MonoBehaviour:
   projectileSpeed: 8
   projectileLifetime: 4
   projectileDamage: 5
+  facing: {fileID: 8745263491487896889}
   anim: {fileID: 5370742656686667203}
 --- !u!114 &5108417599045506211
 MonoBehaviour:
@@ -261,6 +263,7 @@ MonoBehaviour:
   moveSpeed: 2.5
   preferredRange: 4
   stopBuffer: 0.5
+  facing: {fileID: 8745263491487896889}
   anim: {fileID: 5370742656686667203}
 --- !u!114 &-7779611888094795376
 MonoBehaviour:
@@ -274,6 +277,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbea3d44604ce5540874accdbde9a0f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TargetableView
+--- !u!114 &8745263491487896889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2176469056052854023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 322d69a7e2fabf447896bd6bd12b97f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyMageFacingView
+  spriteRenderer: {fileID: 4519055532375894788}
+  spriteFacesRightByDefault: 1
 --- !u!1 &3936315938163094879
 GameObject:
   m_ObjectHideFlags: 0

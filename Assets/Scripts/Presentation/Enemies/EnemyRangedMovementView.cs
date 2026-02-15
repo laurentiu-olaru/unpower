@@ -7,6 +7,9 @@ public class EnemyRangedMovementView : MonoBehaviour
 	[SerializeField] private float preferredRange = 6f;
 	[SerializeField] private float stopBuffer = 0.5f;
 
+	[SerializeField] private EnemyMageFacingView facing;
+
+
 	[Header("Refs")]
 	[SerializeField] private EnemyMageAnimatorView anim;
 
@@ -14,6 +17,9 @@ public class EnemyRangedMovementView : MonoBehaviour
 
 	void Awake()
 	{
+		if (facing == null) facing = GetComponent<EnemyMageFacingView>();
+
+
 		if (anim == null)
 			anim = GetComponent<EnemyMageAnimatorView>();
 	}
@@ -29,13 +35,16 @@ public class EnemyRangedMovementView : MonoBehaviour
 			return;
 		}
 
-		var t = target.GetTransform();
-		if (t == null)
+		if (!TryGetTargetTransform(out var t))
 		{
-			target = null;
-			anim?.SetMoving(false);
-			return;
+			AcquireTarget();
+			if (!TryGetTargetTransform(out t))
+			{
+				anim?.SetMoving(false);
+				return;
+			}
 		}
+
 
 		Vector2 targetPos = t.position;
 
@@ -67,6 +76,9 @@ public class EnemyRangedMovementView : MonoBehaviour
 			pos,
 			moveSpeed * Time.deltaTime
 		);
+		Vector2 dir = (pos - (Vector2)transform.position).normalized;
+		facing?.FaceMoveDirection(dir);
+
 	}
 
 	private void MoveAway(Vector2 pos)
@@ -75,6 +87,8 @@ public class EnemyRangedMovementView : MonoBehaviour
 
 		Vector2 dir2D = ((Vector2)transform.position - pos).normalized;
 		Vector3 dir3D = new Vector3(dir2D.x, dir2D.y, 0f);
+
+		facing?.FaceMoveDirection(dir2D);
 
 		transform.position += dir3D * moveSpeed * Time.deltaTime;
 	}
@@ -112,4 +126,20 @@ public class EnemyRangedMovementView : MonoBehaviour
 	{
 		moveSpeed *= multiplier;
 	}
+
+	private bool TryGetTargetTransform(out Transform t)
+	{
+		t = null;
+		if (target == null) return false;
+
+		t = target.GetTransform();
+		if (t == null)
+		{
+			target = null;
+			return false;
+		}
+
+		return true;
+	}
+
 }
