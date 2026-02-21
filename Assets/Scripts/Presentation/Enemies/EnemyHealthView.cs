@@ -21,8 +21,10 @@ public class EnemyHealthView : MonoBehaviour, IDamageable, IHealthInitializable
 
     public event Action<int> Damaged; // amount
 
-    // Called by difficulty system BEFORE init
-    public void SetMaxHp(int newMaxHp)
+	public event Action<EnemyHealthView> Died;
+
+	// Called by difficulty system BEFORE init
+	public void SetMaxHp(int newMaxHp)
     {
         if (initialized) return;
         maxHP = Mathf.Max(1, newMaxHp);
@@ -68,7 +70,8 @@ public class EnemyHealthView : MonoBehaviour, IDamageable, IHealthInitializable
 
     private void Die()
     {
-        if (coinPrefab != null && UnityEngine.Random.value <= dropChance)
+		Died?.Invoke(this);
+		if (coinPrefab != null && UnityEngine.Random.value <= dropChance)
         {
             for (int i = 0; i < coinsToDrop; i++)
                 Instantiate(coinPrefab, transform.position, Quaternion.identity);

@@ -188098,6 +188098,7 @@ GameObject:
   - component: {fileID: 2005648628}
   - component: {fileID: 2005648627}
   - component: {fileID: 2005648626}
+  - component: {fileID: 2005648630}
   m_Layer: 0
   m_Name: WaveSystem
   m_TagString: Untagged
@@ -188150,6 +188151,7 @@ MonoBehaviour:
   hud: {fileID: 1964517422}
   enemyPool: {fileID: 11400000, guid: 89a1894e435cf394c8b5f35c038a887a, type: 2}
   fallbackEnemyId: melee
+  _bossCoordinator: {fileID: 2005648630}
 --- !u!4 &2005648629
 Transform:
   m_ObjectHideFlags: 0
@@ -188165,6 +188167,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2005648630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005648625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1094ef44d94dc774b9ca26e46b4ffe27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossWaveCoordinatorView
+  _schedule: {fileID: 11400000, guid: 53f5ee670d465eb49a2bd174248b2c05, type: 2}
+  _bossCatalog: {fileID: 11400000, guid: 87bbaedb9d87e9a47b08789805f4f5ac, type: 2}
+  _bossDifficulty: {fileID: 11400000, guid: 3fe8b300744633449a18ca1d3afe0133, type: 2}
+  _difficultyApplier: {fileID: 2005648626}
+  _spawnService: {fileID: 2005648627}
+  _bossSpawnPoint: {fileID: 0}
 --- !u!1 &2046982378
 GameObject:
   m_ObjectHideFlags: 0

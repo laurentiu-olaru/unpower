@@ -20,6 +20,7 @@ public class WaveRunnerView : MonoBehaviour
 	[SerializeField] private WaveEnemyPoolSO enemyPool;
 	[SerializeField] private string fallbackEnemyId = "melee";
 
+	[SerializeField] private BossWaveCoordinatorView _bossCoordinator;
 
 
 	private IEnemySpawnService spawnService;
@@ -60,17 +61,18 @@ public class WaveRunnerView : MonoBehaviour
         StartCoroutine(RunWaves());
     }
 
-    private IEnumerator RunWaves()
-    {
-        while (true)
-        {
-            var plan = curve.GetPlan(new WaveIndex(currentWave));
-            Debug.Log($"[WaveRunner] Wave {currentWave}: enemies={plan.EnemyCount}, spawnGap={plan.TimeBetweenSpawns:0.00}, rest={plan.TimeBetweenWaves:0.00}");
-            hud?.SetWave(currentWave);
+	private IEnumerator RunWaves()
+	{
+		while (true)
+		{
+			var plan = curve.GetPlan(new WaveIndex(currentWave));
+			Debug.Log($"[WaveRunner] Wave {currentWave}: enemies={plan.EnemyCount}, spawnGap={plan.TimeBetweenSpawns:0.00}, rest={plan.TimeBetweenWaves:0.00}");
+			hud?.SetWave(currentWave);
 
-            for (int i = 0; i < plan.EnemyCount; i++)
-            {
-                Vector2 pos = GetSpawnPosAroundPlayer();
+			// 1) Normal enemy spawns for this wave
+			for (int i = 0; i < plan.EnemyCount; i++)
+			{
+				Vector2 pos = GetSpawnPosAroundPlayer();
 				string enemyId = fallbackEnemyId;
 
 				if (enemyPool != null && enemyPool.TryPickEnemyId(currentWave, out var picked))
@@ -78,13 +80,11 @@ public class WaveRunnerView : MonoBehaviour
 
 				var enemy = spawnService.SpawnEnemy(enemyId, pos);
 
-
-				int coinCount = 1 + ((currentWave - 1) / 5); // +1 coin every 5 waves
+				// +1 coin every 5 waves
+				int coinCount = 1 + ((currentWave - 1) / 5);
 
 				if (enemy != null)
 				{
-					coinCount = 1 + ((currentWave - 1) / 5);
-
 					var ehv = enemy.GetComponent<EnemyHealthView>();
 					if (ehv != null)
 						ehv.SetCoinsToDrop(coinCount);
@@ -95,38 +95,31 @@ public class WaveRunnerView : MonoBehaviour
 					enemy.SetActive(true);
 				}
 
+				yield return new WaitForSeconds(plan.TimeBetweenSpawns);
+			}
 
+			// 2) Boss segment happens HERE (after normal spawns, before rest)
+			if (_bossCoordinator != null)
+			{
+				yield return _bossCoordinator.RunBossSegmentIfAny(currentWave);
+			}
 
-				if (enemy != null)
-                {
-                    if (difficultyApplier != null)
-                        difficultyApplier.Apply(enemy, plan.EnemyHpMultiplier, plan.EnemySpeedMultiplier, plan.EnemyDamageMultiplier);
+			// 3) Normal rest (same as before)
+			yield return new WaitForSeconds(plan.TimeBetweenWaves);
 
-                    // Activate only after difficulty is applied
-                    enemy.SetActive(true);
-                }
+			// 4) Extra break every 5 waves (after wave 5, 10, 15...)
+			if (currentWave % 5 == 0)
+			{
+				hud?.ShowBreak(60);
+				yield return new WaitForSeconds(60f);
+				hud?.HideBreak();
+			}
 
-                yield return new WaitForSeconds(plan.TimeBetweenSpawns);
+			currentWave++;
+		}
+	}
 
-            }
-
-
-            // normal rest
-            yield return new WaitForSeconds(plan.TimeBetweenWaves);
-
-            // extra break every 5 waves (after wave 5, 10, 15...)
-            if (currentWave % 5 == 0)
-            {
-                hud?.ShowBreak(60);
-                yield return new WaitForSeconds(60f);
-                hud?.HideBreak();
-            }
-            currentWave++;
-            
-        }
-    }
-
-    private Vector2 GetSpawnPosAroundPlayer()
+	private Vector2 GetSpawnPosAroundPlayer()
     {
         Vector2 dir = Random.insideUnitCircle.normalized;
         return (Vector2)player.position + dir * spawnRadius;
