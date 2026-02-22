@@ -13,10 +13,18 @@ MonoBehaviour:
   m_Name: BossWaveSchedule
   m_EditorClassIdentifier: Assembly-CSharp::BossWaveScheduleSO
   _entries:
-  - WaveNumber: 5
-    PreBossDelaySeconds: 15
+  - WaveNumber: 1
+    PreBossDelaySeconds: 5
     PauseNormalSpawning: 1
     SpawnSequentially: 0
     TimeBetweenBossSpawns: 0
     BossIds:
     - stone_golem
+  - WaveNumber: 2
+    PreBossDelaySeconds: 5
+    PauseNormalSpawning: 1
+    SpawnSequentially: 0
+    TimeBetweenBossSpawns: 5
+    BossIds:
+    - stone_golem
+    - stone_golem2

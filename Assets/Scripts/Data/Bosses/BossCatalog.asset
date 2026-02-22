@@ -15,3 +15,5 @@ MonoBehaviour:
   _entries:
   - BossId: stone_golem
     Prefab: {fileID: 5595913298410846709, guid: b0d7dd528ad9745489ddd2198216526c, type: 3}
+  - BossId: stone_golem2
+    Prefab: {fileID: 8161944696577987308, guid: aad7e3f3533b805419b9b43a249b6ebc, type: 3}

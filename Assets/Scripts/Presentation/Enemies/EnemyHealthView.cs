@@ -14,7 +14,11 @@ public class EnemyHealthView : MonoBehaviour, IDamageable, IHealthInitializable
     public GameObject coinPrefab;
     [Range(0, 1)] public float dropChance = 1f;
 
-    private HealthComponent health;
+	[SerializeField] private bool destroyOnDie = true;
+	[SerializeField] private float destroyDelaySeconds = 0f;
+
+
+	private HealthComponent health;
     private bool initialized;
 
     private int coinsToDrop = 1;
@@ -71,13 +75,17 @@ public class EnemyHealthView : MonoBehaviour, IDamageable, IHealthInitializable
     private void Die()
     {
 		Died?.Invoke(this);
-		if (coinPrefab != null && UnityEngine.Random.value <= dropChance)
-        {
-            for (int i = 0; i < coinsToDrop; i++)
-                Instantiate(coinPrefab, transform.position, Quaternion.identity);
-        }
 
-        Destroy(gameObject);
-    }
+		if (coinPrefab != null && UnityEngine.Random.value <= dropChance)
+		{
+			for (int i = 0; i < coinsToDrop; i++)
+				Instantiate(coinPrefab, transform.position, Quaternion.identity);
+		}
+
+		if (destroyOnDie)
+		{
+			Destroy(gameObject, destroyDelaySeconds);
+		}
+	}
 
 }
