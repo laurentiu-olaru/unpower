@@ -111,16 +111,21 @@ public class WaveRunnerView : MonoBehaviour
 				yield return new WaitForSeconds(plan.TimeBetweenSpawns);
 			}
 
-			// 2) Boss segment happens HERE (after normal spawns, before rest)
+			// 2) Boss segment — blocks here until all bosses are dead (or skipped instantly
+			//    if no boss is scheduled for this wave).
+			//    Wave 20 triggers the golem; wave 40, 60, … follow the same interval.
 			if (_bossCoordinator != null)
 			{
 				yield return _bossCoordinator.RunBossSegmentIfAny(currentWave);
 			}
 
-			// 3) Normal rest (same as before)
+			// 3) Normal inter-wave rest — always runs, even after a boss wave.
+			//    This is the "normal break" the player gets between every wave.
 			yield return new WaitForSeconds(plan.TimeBetweenWaves);
 
-			// 4) Extra break every 5 waves (after wave 5, 10, 15...)
+			// 4) Extended 60-second break every 5 waves (waves 5, 10, 15, 20, …).
+			//    Boss waves (20, 40, 60, …) are multiples of 5, so the player always
+			//    gets this full breather after defeating a boss before the next wave starts.
 			if (currentWave % 5 == 0)
 			{
 				hud?.ShowBreak(60);
