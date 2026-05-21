@@ -30,9 +30,6 @@ public class HitFlash : MonoBehaviour
 
     void OnEnable()
     {
-        Debug.Log($"HitFlash OnEnableon {name}");
-        if (health == null)
-            Debug.Log($"Healts is null on {name}");
         // TEMP: support HealthView for now
         var hv = GetComponentInParent<HealthView>();
         if (hv != null)
@@ -41,13 +38,17 @@ public class HitFlash : MonoBehaviour
         if (_enemyHealthView != null)
             _enemyHealthView.Damaged += OnEnemyDamaged;
 
-
-        Debug.Log($"HitFlash subscribing to health on {health.name} (Id={health.GetInstanceID()}");
-
         if (health != null)
-            health.Damaged += OnDamaged; 
-
-
+        {
+            // Previously the Debug.Log below ran BEFORE the null check, which
+            // threw a NullReferenceException on health.name when health was null.
+            Debug.Log($"HitFlash subscribing to health on {health.name} (Id={health.GetInstanceID()})");
+            health.Damaged += OnDamaged;
+        }
+        else
+        {
+            Debug.Log($"[HitFlash] No HealthBehaviour found on '{name}' — flash will only trigger via HealthView/EnemyHealthView.");
+        }
     }
 
     void OnDisable()

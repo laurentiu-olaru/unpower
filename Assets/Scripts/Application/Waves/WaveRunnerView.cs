@@ -2,6 +2,19 @@ using System.Collections;
 using Domain.Waves;
 using UnityEngine;
 
+/// <summary>
+/// Orchestrates the entire wave progression loop.
+///
+/// Each wave:
+///   1. Spawns <c>plan.EnemyCount</c> enemies with staggered timing
+///   2. Applies per-wave HP/speed/damage multipliers via IEnemyDifficultyApplier
+///   3. Hands off to <see cref="BossWaveCoordinatorView"/> for any boss segment
+///   4. Waits the rest period, then optionally a longer 5-wave break
+///
+/// spawnServiceBehaviour and difficultyApplierBehaviour are serialized as
+/// MonoBehaviour references (not typed interfaces) so Unity can display them
+/// in the Inspector while still binding through the interface at runtime.
+/// </summary>
 public class WaveRunnerView : MonoBehaviour
 {
     [Header("Dependencies")]

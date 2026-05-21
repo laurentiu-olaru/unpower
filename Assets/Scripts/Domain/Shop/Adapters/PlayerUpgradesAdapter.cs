@@ -45,11 +45,14 @@ public class PlayerUpgradesAdapter : MonoBehaviour, IPlayerUpgrades
     {
         if (healthView == null) return;
 
-        // Your HealthComponent currently has MaxHP read-only,
-        // so we cannot actually increase max HP without upgrading HealthComponent design.
-        // For now, we can warn or apply a workaround (NOT recommended).
-        Debug.LogWarning("MaxHP upgrade requested, but HealthComponent.MaxHP is readonly. Upgrade HealthComponent to support max HP changes.");
-        healthView.Heal(amount+100); // Workaround: heal the player instead of increasing max HP.
+        // TODO: HealthComponent.MaxHP is currently read-only. To properly support a
+        // max-HP upgrade you need to add a SetMaxHP(int) or IncreaseMaxHP(int) method
+        // to HealthComponent. Until then, we heal by 'amount' as a stopgap so the
+        // upgrade at least has a positive effect.
+        // Previously this healed by (amount + 100), inflating the heal amount by a
+        // hardcoded 100 that was leftover from a test and never removed.
+        Debug.LogWarning("MaxHP upgrade requested, but HealthComponent.MaxHP is readonly. Healing instead as a temporary workaround.");
+        healthView.Heal(amount);
     }
 
     public void AddDamage(int amount)

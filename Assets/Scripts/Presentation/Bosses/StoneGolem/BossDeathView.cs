@@ -38,12 +38,15 @@ public class BossDeathView : MonoBehaviour
 		if (hasDied) return;     //prevents double trigger
 		hasDied = true;
 
-		// Stop physics movement immediately
+		// Stop physics movement and freeze the corpse in place.
+		// Setting simulated = false removes the rigidbody from the physics
+		// simulation entirely, which prevents other colliders (enemies, projectiles)
+		// from shoving the dead boss around after death.
 		if (rb != null)
 		{
 			rb.linearVelocity = Vector2.zero;
 			rb.angularVelocity = 0f;
-			rb.simulated = true; // keep simulated so it stays in world; set false if you want it to freeze completely
+			rb.simulated = false;
 		}
 
 		// Disable scripts (movement/attack/targeting)

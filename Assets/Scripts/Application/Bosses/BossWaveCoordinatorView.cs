@@ -2,6 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Plugs into <see cref="WaveRunnerView"/> to add optional boss segments between waves.
+///
+/// Flow per wave (called by WaveRunnerView as a coroutine):
+///   1. Check BossWaveScheduleSO — does this wave number have a boss entry?
+///   2. If yes: fire OnBossIncoming, wait PreBossDelaySeconds, then spawn boss(es)
+///   3. Wait until ALL spawned bosses are dead (tracked via EnemyHealthView.Died)
+///   4. Yield back to WaveRunnerView so the normal rest period can continue
+///
+/// If the wave has no boss entry, RunBossSegmentIfAny immediately yields break
+/// with zero overhead.
+/// </summary>
 public class BossWaveCoordinatorView : MonoBehaviour
 {
 	[Header("Data")]
@@ -92,20 +104,22 @@ public class BossWaveCoordinatorView : MonoBehaviour
 
 			//IMPORTANT: include inactive children because GO is inactive right now
 			var healthView = go.GetComponentInChildren<EnemyHealthView>(true);
-			if (healthView != null)
-			{
-				// Example: boss drops 10x the normal wave coin count
-				int baseCoins = 1 + ((wave - 1) / 5);
-				healthView.SetCoinsToDrop(baseCoins * 10);
-
-				healthView.Died += OnBossDied;
-			}
 			if (healthView == null)
 			{
+				// Without a health view we cannot track when the boss dies, so
+				// warn loudly — the while(aliveBosses.Count > 0) loop below
+				// would block the wave runner forever if this is silently missed.
 				Debug.LogWarning($"[BossWaveCoordinator] Boss '{bossId}' has no EnemyHealthView (even in inactive children).");
 			}
 			else
 			{
+				// Boss drops 10x the normal wave coin count as a reward
+				int baseCoins = 1 + ((wave - 1) / 5);
+				healthView.SetCoinsToDrop(baseCoins * 10);
+
+				// Subscribe ONCE — previously this was accidentally subscribed twice
+				// (once in an earlier if-block and again in this else-block), which
+				// caused OnBossDied to fire twice and leave a dangling subscription.
 				healthView.Died += OnBossDied;
 			}
 

@@ -7,10 +7,11 @@ public class ScoreComponent
     public event Action<int> OnScoreChanged;
 
 
-    //This function can be deleted - just for testing purposes
     public void Initialize(int startingScore)
 	{
-		Score = 10;
+		// Previously hardcoded to 10, ignoring the startingScore parameter entirely.
+		// Every game session started with 10 coins regardless of what was passed in.
+		Score = startingScore;
 		OnScoreChanged?.Invoke(Score);
 	}
 

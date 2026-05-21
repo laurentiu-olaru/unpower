@@ -98,30 +98,25 @@ public class ShopView : MonoBehaviour
 
         var result = shop.TryBuy(product.Id, context);
 
-        if (feedbackText != null)
-        {
-            ShowTemporaryMessage(result.Success ? "Purchased! Place it..." : result.Reason);
-            //DEBUG
-            Debug.Log($"[ShopView] TryBuy({product.Id}) success={result.Success}");
+        // Show feedback message regardless of outcome
+        ShowTemporaryMessage(result.Success ? "Purchased! Place it..." : result.Reason);
+        Debug.Log($"[ShopView] TryBuy({product.Id}) success={result.Success}");
 
-			OnPurchaseSucceeded?.Invoke();
-        }
-        else
-        {
-			ShowTemporaryMessage(result.Reason);
-		}
-
+        // Play the appropriate SFX
         if (result.Success && buySuccessClip != null)
         {
             if (sfxSource != null)
                 sfxSource.PlayOneShot(buySuccessClip, buyVolume);
         }
-         else if (!result.Success && buyFailClip != null)
-         {
+        else if (!result.Success && buyFailClip != null)
+        {
             if (sfxSource != null)
                 sfxSource.PlayOneShot(buyFailClip, failVolume);
-         }
+        }
 
+        // Only fire OnPurchaseSucceeded and refresh the shop list on an actual success.
+        // Previously this was inside the (feedbackText != null) block which fired it
+        // unconditionally — failed purchases incorrectly triggered a "success" event.
         if (result.Success)
         {
             OnPurchaseSucceeded?.Invoke();
